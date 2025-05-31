@@ -9,15 +9,13 @@ import SwiftUI
 
 @main
 struct F1AppApp: App {
-    @StateObject private var coordinator = AppCoordinator()
-    @StateObject private var seasonsViewModel = SeasonsViewModel()
+    @StateObject private var coordinator = DependencyContainer.shared.makeAppCoordinator()
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $coordinator.path) {
-                SeasonsView()
+                coordinator.makeSeasonsView()
                     .environmentObject(coordinator)
-                    .environmentObject(seasonsViewModel)
             }
         }
     }

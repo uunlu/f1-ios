@@ -7,39 +7,34 @@
 
 import SwiftUI
 
-
 struct RaceWinnerView: View {
-    @StateObject var raceWinnerViewModel = RaceWinnerViewModel()
+    @StateObject private var viewModel: RaceWinnerViewModel
+    private let season: Season
     
-    @State private var raceWinners: [RaceWinner] = [
-        RaceWinner(
-            seasonDriverId: nil,
-            seasonConstructorId: "mclaren",
-            constructorName: "McLaren",
-            driver: Driver(driverId: "piastri", familyName: "Piastri", givenName: "Oscar"),
-            round: "17",
-            seasonName: "2024",
-            champion: false
-        ),
-        RaceWinner(
-            seasonDriverId: "hamilton2023",
-            seasonConstructorId: "mercedes",
-            constructorName: "Mercedes",
-            driver: Driver(driverId: "hamilton", familyName: "Hamilton", givenName: "Lewis"),
-            round: "16",
-            seasonName: "2023",
-            champion: true
-        )
-    ]
+    init(viewModel: RaceWinnerViewModel, season: Season) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+        self.season = season
+    }
 
     var body: some View {
-        NavigationView {
-            List(raceWinnerViewModel.raceWinners, id: \.round) { raceWinner in
-                RaceWinnerItemView(raceWinner: raceWinner)
+        List(viewModel.raceWinners, id: \.round) { raceWinner in
+            RaceWinnerItemView(raceWinner: raceWinner)
+        }
+        .navigationTitle("Race Winners - \(season.season)")
+        .overlay {
+            if viewModel.isLoading {
+                ProgressView()
             }
-            .navigationTitle("Race Winners")
-        }.task {
-            await raceWinnerViewModel.loadRaceWinners()
+        }
+        .alert("Error", isPresented: .constant(viewModel.error != nil)) {
+            Button("OK") {
+                viewModel.error = nil
+            }
+        } message: {
+            Text(viewModel.error ?? "")
+        }
+        .task {
+            await viewModel.loadRaceWinners()
         }
     }
 }
@@ -76,7 +71,10 @@ struct RaceWinnerItemView: View {
     }
 }
 
-
 #Preview {
-    RaceWinnerView()
+    let container = DependencyContainer.shared
+    let viewModel = container.makeRaceWinnerViewModel()
+    let mockSeason = Season(driver: "Mock Driver", season: "2024", constructor: "Mock Team")
+    
+    return RaceWinnerView(viewModel: viewModel, season: mockSeason)
 }

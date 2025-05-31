@@ -7,14 +7,18 @@
 
 import Foundation
 
+@MainActor
 class RaceWinnerViewModel: ObservableObject {
     @Published var raceWinners: [RaceWinner] = []
     @Published var isLoading = false
     @Published var error: String?
     
-    private let raceWinnerLoader = RemoteRaceWinnerLoader(networkService: URLSessionNetworkService())
+    private let raceWinnerLoader: RaceWinnerLoader
     
-    @MainActor
+    init(raceWinnerLoader: RaceWinnerLoader) {
+        self.raceWinnerLoader = raceWinnerLoader
+    }
+    
     func loadRaceWinners() async {
         isLoading = true
         error = nil
@@ -25,7 +29,7 @@ class RaceWinnerViewModel: ObservableObject {
             self.isLoading = false
         case .failure(let failure):
             self.raceWinners = []
-            self.error = error?.localizedLowercase
+            self.error = failure.localizedDescription
             self.isLoading = false
         }
     }

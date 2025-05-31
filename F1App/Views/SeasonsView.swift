@@ -2,17 +2,27 @@ import SwiftUI
 
 struct SeasonsView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
-    @EnvironmentObject private var viewModel: SeasonsViewModel
+    @StateObject private var viewModel: SeasonsViewModel
+    
+    init(viewModel: SeasonsViewModel) {
+        self._viewModel = StateObject(wrappedValue: viewModel)
+    }
     
     var body: some View {
         List(viewModel.seasons) { season in
-            NavigationLink(value: season) {
+            Button {
+                coordinator.showRaceWinners(for: season)
+            } label: {
                 SeasonRow(season: season)
             }
+            .buttonStyle(PlainButtonStyle())
         }
         .navigationTitle("F1 World Champions")
         .navigationDestination(for: Season.self) { season in
-            RaceWinnerView()
+            coordinator.makeSeasonDetailsView(for: season)
+        }
+        .navigationDestination(for: RaceWinnerDestination.self) { destination in
+            coordinator.makeRaceWinnerView(for: destination.season)
         }
         .overlay {
             if viewModel.isLoading {

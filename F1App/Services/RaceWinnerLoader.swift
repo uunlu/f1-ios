@@ -17,7 +17,7 @@ class RemoteRaceWinnerLoader: RaceWinnerLoader {
     }
     let networkService: NetworkService
     
-    init(networkService: NetworkService) {
+    init(networkService: NetworkService = URLSessionNetworkService()) {
         self.networkService = networkService
     }
     

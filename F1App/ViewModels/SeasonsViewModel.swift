@@ -6,8 +6,11 @@ class SeasonsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
     
-    private let seasonLoader = RemoteSeasonLoader(networkService: URLSessionNetworkService())
-    //    private let mockService = MockDataService.shared
+    private let seasonLoader: SeasonLoader
+    
+    init(seasonLoader: SeasonLoader) {
+        self.seasonLoader = seasonLoader
+    }
     
     func loadSeasons() async {
         isLoading = true
