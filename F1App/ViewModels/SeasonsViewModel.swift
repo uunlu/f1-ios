@@ -6,25 +6,26 @@ class SeasonsViewModel: ObservableObject {
     @Published var isLoading = false
     @Published var error: String?
     
-    private let networkService = NetworkService.shared
-    private let mockService = MockDataService.shared
+    private let seasonLoader = RemoteSeasonLoader(networkService: URLSessionNetworkService())
+    //    private let mockService = MockDataService.shared
     
-    func loadSeasons() {
+    func loadSeasons() async {
         isLoading = true
         error = nil
         
         // Temporarily use mock data
-//        seasons = mockService.getMockSeasons()
-//        isLoading = false
+        //        seasons = mockService.getMockSeasons()
+        //        isLoading = false
         
-        // Uncomment this when backend is ready
-        Task {
-            do {
-                seasons = try await networkService.fetchSeasons()
-            } catch {
-                self.error = error.localizedDescription
-            }
-            isLoading = false
+        
+        switch await seasonLoader.fetch(from: APIConfig.seasonChampionsURL()!) {
+        case .success(let seasons):
+            self.seasons = seasons
+            self.isLoading = false
+        case .failure(let error):
+            self.seasons = []
+            self.error = error.localizedDescription
+            self.isLoading = false
         }
     }
 } 

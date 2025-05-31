@@ -12,7 +12,7 @@ struct SeasonsView: View {
         }
         .navigationTitle("F1 World Champions")
         .navigationDestination(for: Season.self) { season in
-            SeasonDetailsView(season: season)
+            RaceWinnerView()
         }
         .overlay {
             if viewModel.isLoading {
@@ -27,7 +27,7 @@ struct SeasonsView: View {
             Text(viewModel.error ?? "")
         }
         .task {
-            viewModel.loadSeasons()
+            await viewModel.loadSeasons()
         }
     }
 }
@@ -37,11 +37,11 @@ struct SeasonRow: View {
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("\(season.year)")
+            Text("\(season.season)")
                 .font(.headline)
-            Text("Champion: \(season.champion)")
+            Text("Champion: \(season.constructor)")
                 .font(.subheadline)
-            Text("Constructor: \(season.constructor)")
+            Text("Constructor: \(season.driver)")
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }

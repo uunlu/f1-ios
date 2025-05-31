@@ -33,4 +33,14 @@ struct APIConfig {
         let urlString = "\(baseURL)/season-champions?startYear=\(startYear)&endYear=\(endYear)"
         return URL(string: urlString)
     }
+    
+    static func seasonChampionsURL() -> URL? {
+        let urlString = "\(baseURL)/seasons"
+        return URL(string: urlString)
+    }
+    
+    static func raceWinnersURL(for year: String) -> URL? {
+        let urlString = "\(baseURL)/race-winners/\(year)"
+        return URL(string: urlString)
+    }
 }

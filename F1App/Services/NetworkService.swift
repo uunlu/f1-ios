@@ -1,61 +1,41 @@
+//
+//  NetworkService.swift
+//  F1App
+//
+//  Created by Ugur Unlu on 31/05/2025.
+//
+
 import Foundation
 
-enum NetworkError: Error {
-    case invalidURL
-    case noData
-    case decodingError
-    case serverError(String)
+protocol NetworkService {
+    func fetch(from request: URLRequest) async -> Result<Data, Error>
 }
 
-class NetworkService {
-    static let shared = NetworkService()
-    private let baseURL = APIConfig.baseURL
-    
-    private init() {}
-    
-    func fetchSeasons() async throws -> [Season] {
-        guard let url1 = URL(string: "\(baseURL)/seasons") else {
-            throw NetworkError.invalidURL
-        }
-        
-//        var url = URL(string: "https://89ee-128-77-59-67.ngrok-free.app/api/f1/seasons")!
-//        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        let session = URLSession(configuration: .default)
-        var request = URLRequest(url: URL(string: "https://89ee-128-77-59-67.ngrok-free.app/api/f1/seasons")!)
-        request.timeoutInterval = 30
-        let (data, response) = try await session.data(for: request)
-        
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.serverError("Invalid response")
-        }
-        
-        do {
-            let seasons = try JSONDecoder().decode([Season].self, from: data)
-            return seasons
-        } catch {
-            throw NetworkError.decodingError
-        }
+
+final class URLSessionNetworkService: NetworkService {
+    enum Error: Swift.Error {
+        case invalidStatusCode
+        case invalidConnection
     }
     
-    func fetchSeasonDetails(year: Int) async throws -> Season {
-        guard let url = URL(string: "\(baseURL)/seasons/\(year)") else {
-            throw NetworkError.invalidURL
-        }
-        
-        let (data, response) = try await URLSession.shared.data(from: url)
-        
-        guard let httpResponse = response as? HTTPURLResponse,
-              (200...299).contains(httpResponse.statusCode) else {
-            throw NetworkError.serverError("Invalid response")
-        }
-        
+    private let session: URLSession
+    
+    init(session: URLSession = .shared) {
+        self.session = session
+    }
+    
+    func fetch(from request: URLRequest) async -> Result<Data, Swift.Error> {
         do {
-            let season = try JSONDecoder().decode(Season.self, from: data)
-            return season
-        } catch {
-            throw NetworkError.decodingError
+            let (data, response) = try await session.data(for: request)
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                return .failure(Error.invalidStatusCode)
+            }
+            
+            return .success(data)
+        }catch {
+            return .failure(Error.invalidConnection)
         }
     }
-} 
+}
+
