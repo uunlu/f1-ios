@@ -16,11 +16,6 @@ class SeasonsViewModel: ObservableObject {
         isLoading = true
         error = nil
         
-        // Temporarily use mock data
-        //        seasons = mockService.getMockSeasons()
-        //        isLoading = false
-        
-        
         switch await seasonLoader.fetch(from: APIConfig.seasonChampionsURL()!) {
         case .success(let seasons):
             self.seasons = seasons
