@@ -75,28 +75,25 @@ struct RaceWinnerView: View {
                 VStack(alignment: .leading, spacing: F1Layout.spacing16) {
                     // Champion badge
                     HStack {
-                        ZStack {
+                        HStack(spacing: F1Layout.spacing6) {
+                            Image(systemName: "crown.fill")
+                                .font(.system(size: F1Layout.iconSmall))
+                                .foregroundColor(F1Colors.f1White)
+                            
+                            Text("World Champion")
+                                .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
+                                .fontWeight(.bold)
+                                .lineLimit(1)
+                        }
+                        .padding(.horizontal, 12)
+                        .padding(.vertical, 6)
+                        .background(
                             RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
                                 .fill(teamGradient)
-                                .frame(width: 100, height: 32)
-                            
-                            HStack(spacing: F1Layout.spacing6) {
-                                Image(systemName: "crown.fill")
-                                    .font(.system(size: F1Layout.iconSmall))
-                                    .foregroundColor(F1Colors.f1White)
-                                
-                                Text("World Champion")
-                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
-                                    .fontWeight(.bold)
-                            }
-                        }
+                        )
                         .f1ShadowLight()
                         
                         Spacer()
-                        
-                        Text(season.season)
-                            .f1TextStyle(F1Typography.title3, color: teamColor)
-                            .fontWeight(.bold)
                     }
                     
                     // Driver info
@@ -193,8 +190,21 @@ struct RaceWinnerView: View {
 }
 
 #Preview {
-    // TODO: use mock depndencies in the container for testing
-    let container = DependencyContainer()
+    class MockSeasonLoader: SeasonLoader {
+        func fetch(from url: URL) async -> Result<[Season], any Error> {
+            return .success([.init(driver: "driver", season: "2024", constructor: "constructor")])
+        }
+    }
+    
+    class MockRaceWinnerLoader: RaceWinnerLoader {
+        func fetch(from url: URL) async -> Result<[RaceWinner], any Error> {
+            return .success([.init(seasonDriverId: nil, seasonConstructorId: "seasonConstructorId", constructorName: "constructorName", driver: .init(driverId: "driverId", familyName: "familyName", givenName: "givenName"), round: "round", seasonName: "seasonName", champion: true)])
+        }
+        
+        
+    }
+    
+    let container = DependencyContainer(networkService: MockNetworkService(), localStorage: nil, seasonLoader: MockSeasonLoader(), raceWinnerLoader: MockRaceWinnerLoader())
     let viewModel = container.makeRaceWinnerViewModel(for: "2020")
     let mockSeason = Season(driver: "Max Verstappen", season: "2024", constructor: "Red Bull Racing")
     
