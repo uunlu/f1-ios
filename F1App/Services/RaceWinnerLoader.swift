@@ -56,3 +56,50 @@ public class RemoteRaceWinnerLoader: RaceWinnerLoader {
         }
     }
 }
+
+public struct RaceWinnerDomainModel: Identifiable {
+    public var id: String { "$season)-$round)" }
+    public let season: String
+    public let round: String
+    public let driver: Driver
+    public let constructor: Constructor
+    public let time: String?
+    public let isChampion: Bool
+    
+    /// Domain model for drivers
+    public struct Driver {
+        public let id: String
+        public let fullName: String
+    }
+    
+    /// Domain model for constructors
+    public struct Constructor {
+        public let id: String
+        public let name: String
+    }
+}
+
+public struct RaceWinnerMapper {
+    /// Convert a DTO to a domain model
+    static func toDomain(_ dto: RaceWinner) -> RaceWinnerDomainModel {
+        return RaceWinnerDomainModel(
+            season: dto.seasonName,
+            round: dto.round,
+            driver: RaceWinnerDomainModel.Driver(
+                id: dto.driver.driverId,
+                fullName: dto.driver.familyName
+            ),
+            constructor: RaceWinnerDomainModel.Constructor(
+                id: dto.seasonConstructorId,
+                name: dto.constructorName
+            ),
+            time: "",
+            isChampion: dto.champion
+        )
+    }
+    
+    /// Convert multiple DTOs to domain models
+    static func toDomain(_ dtos: [RaceWinner]) -> [RaceWinnerDomainModel] {
+        return dtos.map(toDomain)
+    }
+}

@@ -392,18 +392,18 @@ public enum F1Components {
     
     /// Premium race winner item with expandable details
     public struct RaceWinnerItem: View {
-        private let race: RaceWinner
+        private let race: RaceWinnerDomainModel
         @State private var showDetails = false
         
-        public init(race: RaceWinner) {
+        public init(race: RaceWinnerDomainModel) {
             self.race = race
         }
         
         public var body: some View {
-            let constructorColor = F1Colors.teamColor(for: race.constructorName)
-            let teamGradient = F1Colors.teamGradient(for: race.constructorName)
+            let constructorColor = F1Colors.teamColor(for: race.constructor.name)
+            let teamGradient = F1Colors.teamGradient(for: race.constructor.name)
             
-            GradientCard(accentColor: race.champion ? F1Colors.f1Red : constructorColor) {
+            GradientCard(accentColor: race.isChampion ? F1Colors.f1Red : constructorColor) {
                 VStack(alignment: .leading, spacing: F1Layout.spacing16) {
                     // Header section
                     HStack(alignment: .top, spacing: F1Layout.spacing16) {
@@ -424,11 +424,11 @@ public enum F1Components {
                             Text("Round \(race.round)")
                                 .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
                             
-                            Text("\(race.driver.givenName) \(race.driver.familyName)")
+                            Text("\(race.driver.fullName)")
                                 .f1TextStyle(F1Typography.title3, color: F1Colors.textPrimary)
                                 .fontWeight(.semibold)
                             
-                            Text(race.constructorName)
+                            Text(race.constructor.name)
                                 .f1TextStyle(F1Typography.subheadline, color: constructorColor)
                                 .fontWeight(.medium)
                         }
@@ -436,7 +436,7 @@ public enum F1Components {
                         Spacer()
                         
                         // Champion badge
-                        if race.champion {
+                        if race.isChampion {
                             ChampionBadge()
                         }
                     }
@@ -452,7 +452,7 @@ public enum F1Components {
                                     HStack(spacing: F1Layout.spacing8) {
                                         TeamColorBar(color: constructorColor, width: 3, height: 20)
                                         
-                                        Text(race.constructorName)
+                                        Text(race.constructor.name)
                                             .f1TextStyle(F1Typography.callout, color: F1Colors.textPrimary)
                                             .fontWeight(.medium)
                                     }
@@ -461,7 +461,7 @@ public enum F1Components {
                                 Spacer()
                                 
                                 LabeledContent(label: "Season") {
-                                    Text(race.seasonName)
+                                    Text(race.season)
                                         .f1TextStyle(F1Typography.callout, color: F1Colors.textPrimary)
                                         .fontWeight(.medium)
                                 }
@@ -500,7 +500,7 @@ public enum F1Components {
                 }
             }
             .accessibilityElement(children: .contain)
-            .accessibilityLabel("Round \(race.round), \(race.driver.givenName) \(race.driver.familyName), \(race.constructorName)")
+            .accessibilityLabel("Round \(race.round), \(race.driver.fullName), \(race.constructor.name)")
         }
     }
     
