@@ -9,7 +9,8 @@ import SwiftUI
 
 @main
 struct F1AppApp: App {
-    @StateObject private var coordinator = DependencyContainer.shared.makeAppCoordinator()
+    // TODO: probably from a factory
+    @StateObject private var coordinator = DependencyContainer().makeAppCoordinator()
     
     init() {
         // Initialize F1 styling

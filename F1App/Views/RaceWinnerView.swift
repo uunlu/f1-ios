@@ -199,7 +199,8 @@ struct RaceWinnerView: View {
 }
 
 #Preview {
-    let container = DependencyContainer.shared
+    // TODO: use mock depndencies in the container for testing
+    let container = DependencyContainer()
     let viewModel = container.makeRaceWinnerViewModel(for: "2020")
     let mockSeason = Season(driver: "Max Verstappen", season: "2024", constructor: "Red Bull Racing")
     
