@@ -10,87 +10,102 @@ struct SeasonsView: View {
     }
     
     var body: some View {
-        ZStack {
-            F1Colors.background
-                .edgesIgnoringSafeArea(.all)
-            
-            VStack(spacing: 0) {
-                // Header
-                F1Components.SectionHeader(
-                    title: "F1 World Champions",
-                    subtitle: "Formula 1 Championship History"
-                )
-                .f1Padding()
-                .fadeScaleTransition(isActive: isAppeared)
+        // Premium background gradient
+        F1Colors.backgroundGradient
+            .ignoresSafeArea()
+            .overlay(
+                VStack(spacing: 0) {
+                    // Header
+                    F1Components.SectionHeader(
+                        title: "F1 World Champions",
+                        subtitle: "Formula 1 Championship History"
+                    )
+                    .f1Padding(EdgeInsets(
+                        top: F1Layout.spacing16,
+                        leading: F1Layout.spacing20,
+                        bottom: F1Layout.spacing8,
+                        trailing: F1Layout.spacing20
+                    ))
+                    .fadeScaleTransition(isActive: isAppeared)
+                    
+                    if viewModel.isLoading {
+                        loadingView
+                    } else if let error = viewModel.error {
+                        errorView(error)
+                    } else {
+                        seasonsList
+                    }
+                }
+            )
+            .navigationBarTitleDisplayMode(.large)
+            .onAppear {
+                withAnimation(F1Animations.standardSpring.delay(0.2)) {
+                    isAppeared = true
+                }
                 
-                if viewModel.isLoading {
-                    loadingView
-                } else if let error = viewModel.error {
-                    errorView(error)
-                } else {
-                    seasonsList
+                if viewModel.seasons.isEmpty && !viewModel.isLoading {
+                    Task {
+                        await viewModel.loadSeasons()
+                    }
                 }
             }
-        }
-        .navigationBarTitleDisplayMode(.large)
-        .onAppear {
-            withAnimation(F1Animations.standardSpring.delay(0.2)) {
-                isAppeared = true
-            }
-            
-            if viewModel.seasons.isEmpty && !viewModel.isLoading {
-                Task {
-                    await viewModel.loadSeasons()
-                }
-            }
-        }
     }
     
-    // Loading view with racing stripe animation
+    // Loading view with premium shimmer animation
     private var loadingView: some View {
         ScrollView {
-            LazyVStack(spacing: F1Layout.spacing12) {
+            LazyVStack(spacing: F1Layout.spacing16) {
                 ForEach(0..<6, id: \.self) { index in
                     F1Components.LoadingListItem()
-                        .padding(.horizontal, F1Layout.spacing16)
+                        .padding(.horizontal, F1Layout.spacing20)
                         .fadeScaleTransition(isActive: isAppeared)
                         .animation(F1Animations.staggered(index: index), value: isAppeared)
                 }
             }
-            .padding(.vertical, F1Layout.spacing16)
+            .padding(.vertical, F1Layout.spacing8)
         }
+        .scrollIndicators(.hidden)
+        .scrollBounceBehavior(.basedOnSize)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // Error view
     private func errorView(_ message: String) -> some View {
-        F1Components.ErrorView(message: message) {
-            Task {
-                await viewModel.loadSeasons()
+        VStack {
+            Spacer()
+            
+            F1Components.ErrorView(message: message) {
+                Task {
+                    await viewModel.loadSeasons()
+                }
             }
+            .padding(.horizontal, F1Layout.spacing20)
+            .fadeScaleTransition(isActive: isAppeared)
+            
+            Spacer()
         }
-        .fadeScaleTransition(isActive: isAppeared)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
     // Seasons list with beautiful animations
     private var seasonsList: some View {
         ScrollView {
-            LazyVStack(spacing: F1Layout.spacing12) {
+            LazyVStack(spacing: F1Layout.spacing16) {
                 ForEach(Array(viewModel.seasons.enumerated()), id: \.element.id) { index, season in
                     F1Components.SeasonListItem(season: season) {
+                        print("Tapped season: \(season.season)") // Debug print
                         coordinator.showRaceWinners(for: season)
                     }
-                    .padding(.horizontal, F1Layout.spacing16)
+                    .padding(.horizontal, F1Layout.spacing20)
                     .fadeScaleTransition(isActive: isAppeared)
                     .animation(F1Animations.staggered(index: index, baseDelay: 0.05), value: isAppeared)
                 }
             }
-            .padding(.vertical, F1Layout.spacing16)
+            .padding(.vertical, F1Layout.spacing8)
         }
-        .navigationDestination(for: Season.self) { season in
-            coordinator.makeSeasonDetailsView(for: season)
-        }
-        .navigationDestination(for: RaceWinnerDestination.self) { destination in
-            coordinator.makeRaceWinnerView(for: destination.season)
-        }
+        .scrollIndicators(.hidden)
+        .scrollBounceBehavior(.basedOnSize)
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .contentShape(Rectangle()) // Ensure the scroll view responds to touches
     }
 } 

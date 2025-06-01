@@ -21,6 +21,12 @@ struct F1AppApp: App {
             NavigationStack(path: $coordinator.path) {
                 coordinator.makeSeasonsView()
                     .environmentObject(coordinator)
+                    .navigationDestination(for: Season.self) { season in
+                        coordinator.makeSeasonDetailsView(for: season)
+                    }
+                    .navigationDestination(for: RaceWinnerDestination.self) { destination in
+                        coordinator.makeRaceWinnerView(for: destination.season)
+                    }
             }
             .preferredColorScheme(nil) // Allows system dark/light mode switching
         }

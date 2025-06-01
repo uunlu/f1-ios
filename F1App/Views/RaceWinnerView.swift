@@ -19,8 +19,9 @@ struct RaceWinnerView: View {
 
     var body: some View {
         ZStack {
-            F1Colors.background
-                .edgesIgnoringSafeArea(.all)
+            // Premium background gradient
+            F1Colors.backgroundGradient
+                .ignoresSafeArea()
             
             VStack(spacing: 0) {
                 seasonHeader
@@ -49,74 +50,151 @@ struct RaceWinnerView: View {
         }
     }
     
-    // Season header with team branding
+    // Season header with premium team branding
     private var seasonHeader: some View {
         let teamColor = F1Colors.teamColor(for: season.constructor)
+        let teamGradient = F1Colors.teamGradient(for: season.constructor)
         
-        return VStack(alignment: .leading, spacing: F1Layout.spacing16) {
-            F1Components.F1Card(teamColor: teamColor) {
-                VStack(alignment: .leading, spacing: F1Layout.spacing12) {
-                    Text("World Champion")
-                        .f1TextStyle(F1Typography.caption1, color: F1Colors.textSecondary)
+        return VStack(alignment: .leading, spacing: F1Layout.spacing20) {
+            // Premium champion card
+            ZStack {
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
+                    .fill(F1Colors.cardBackground)
+                    .f1ShadowHeavy()
+                
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                teamColor.opacity(0.15),
+                                teamColor.opacity(0.05)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                
+                VStack(alignment: .leading, spacing: F1Layout.spacing16) {
+                    // Champion badge
+                    HStack {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
+                                .fill(teamGradient)
+                                .frame(width: 100, height: 32)
+                            
+                            HStack(spacing: F1Layout.spacing6) {
+                                Image(systemName: "crown.fill")
+                                    .font(.system(size: F1Layout.iconSmall))
+                                    .foregroundColor(F1Colors.f1White)
+                                
+                                Text("World Champion")
+                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
+                                    .fontWeight(.bold)
+                            }
+                        }
+                        .f1ShadowLight()
+                        
+                        Spacer()
+                        
+                        Text(season.season)
+                            .f1TextStyle(F1Typography.title3, color: teamColor)
+                            .fontWeight(.bold)
+                    }
                     
-                    Text(season.driver)
-                        .f1TextStyle(F1Typography.title2)
-                    
-                    Divider().background(F1Colors.separator)
-                    
-                    Text("Constructor")
-                        .f1TextStyle(F1Typography.caption1, color: F1Colors.textSecondary)
-                    
-                    Text(season.constructor)
-                        .f1TextStyle(F1Typography.headline)
+                    // Driver info
+                    VStack(alignment: .leading, spacing: F1Layout.spacing8) {
+                        Text(season.driver)
+                            .f1TextStyle(F1Typography.title2, color: F1Colors.textPrimary)
+                            .fontWeight(.bold)
+                        
+                        HStack(spacing: F1Layout.spacing8) {
+                            RoundedRectangle(cornerRadius: F1Layout.spacing2)
+                                .fill(teamColor)
+                                .frame(width: 4, height: 24)
+                            
+                            Text(season.constructor)
+                                .f1TextStyle(F1Typography.headline, color: F1Colors.textPrimary)
+                                .fontWeight(.medium)
+                        }
+                    }
                 }
+                .f1Padding(F1Layout.cardInsets)
+                
+                // Premium border
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
+                    .stroke(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                teamColor.opacity(0.4),
+                                teamColor.opacity(0.1)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        ),
+                        lineWidth: F1Layout.borderWidth
+                    )
             }
             
             F1Components.SectionHeader(title: "Race Winners")
-                .padding(.top, F1Layout.spacing8)
         }
-        .f1Padding()
+        .f1Padding(EdgeInsets(
+            top: F1Layout.spacing16,
+            leading: F1Layout.spacing20,
+            bottom: F1Layout.spacing8,
+            trailing: F1Layout.spacing20
+        ))
         .fadeScaleTransition(isActive: isAppeared)
     }
     
-    // Loading view with racing stripe animation
+    // Loading view with premium shimmer animation
     private var loadingView: some View {
         ScrollView {
-            LazyVStack(spacing: F1Layout.spacing12) {
+            LazyVStack(spacing: F1Layout.spacing16) {
                 ForEach(0..<5, id: \.self) { index in
                     F1Components.LoadingListItem()
-                        .padding(.horizontal, F1Layout.spacing16)
+                        .padding(.horizontal, F1Layout.spacing20)
                         .fadeScaleTransition(isActive: isAppeared)
                         .animation(F1Animations.staggered(index: index), value: isAppeared)
                 }
             }
-            .padding(.vertical, F1Layout.spacing16)
+            .padding(.vertical, F1Layout.spacing8)
         }
+        .scrollIndicators(.hidden)
+        .scrollBounceBehavior(.basedOnSize)
     }
     
     // Error view
     private func errorView(_ message: String) -> some View {
-        F1Components.ErrorView(message: message) {
-            Task {
-                await viewModel.loadRaceWinners()
+        VStack {
+            Spacer()
+            
+            F1Components.ErrorView(message: message) {
+                Task {
+                    await viewModel.loadRaceWinners()
+                }
             }
+            .padding(.horizontal, F1Layout.spacing20)
+            .fadeScaleTransition(isActive: isAppeared)
+            
+            Spacer()
         }
-        .fadeScaleTransition(isActive: isAppeared)
     }
     
     // Race winners list with beautiful animations
     private var raceWinnersList: some View {
         ScrollView {
-            LazyVStack(spacing: F1Layout.spacing12) {
+            LazyVStack(spacing: F1Layout.spacing16) {
                 ForEach(Array(viewModel.raceWinners.enumerated()), id: \.offset) { index, race in
                     F1Components.RaceWinnerItem(race: race)
-                        .padding(.horizontal, F1Layout.spacing16)
+                        .padding(.horizontal, F1Layout.spacing20)
                         .fadeScaleTransition(isActive: isAppeared)
                         .animation(F1Animations.staggered(index: index, baseDelay: 0.05), value: isAppeared)
                 }
             }
-            .padding(.vertical, F1Layout.spacing16)
+            .padding(.vertical, F1Layout.spacing8)
         }
+        .scrollIndicators(.hidden)
+        .scrollBounceBehavior(.basedOnSize)
     }
 }
 
