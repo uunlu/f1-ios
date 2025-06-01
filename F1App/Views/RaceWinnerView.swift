@@ -77,10 +77,12 @@ struct RaceWinnerView: View {
                                 .font(.system(size: F1Layout.iconSmall))
                                 .foregroundColor(F1Colors.f1White)
                             
-                            Text("World Champion")
-                                .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
-                                .fontWeight(.bold)
-                                .lineLimit(1)
+                            if viewModel.hasChampion {
+                                Text("World Champion")
+                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
+                                    .fontWeight(.bold)
+                                    .lineLimit(1)
+                            }
                         }
                         .padding(.horizontal, F1Layout.spacing12)
                         .padding(.vertical, F1Layout.spacing6)

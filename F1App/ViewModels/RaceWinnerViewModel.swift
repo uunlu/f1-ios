@@ -83,6 +83,7 @@ class RaceWinnerViewModel: ObservableObject {
     @Published var raceWinners: [RaceWinnerDomainModel] = []
     @Published var isLoading = false
     @Published var error: String?
+    @Published var hasChampion: Bool = true
     
     private let raceWinnerLoader: RaceWinnerLoader
     private let seasonYear: String
@@ -148,6 +149,7 @@ class RaceWinnerViewModel: ObservableObject {
     
     @MainActor
     private func updateState(error: String?, winners: [RaceWinnerDomainModel]) {
+        self.hasChampion = winners.contains(where: { $0.isChampion })
         self.error = error
         self.raceWinners = winners
         self.isLoading = false

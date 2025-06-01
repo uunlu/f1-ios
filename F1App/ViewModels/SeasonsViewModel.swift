@@ -74,7 +74,6 @@ class SeasonsViewModel: ObservableObject {
         // Update UI state on main thread
         Task { @MainActor in
             self.isRefreshing = true
-            // Don't clear error here to maintain existing data during refresh
         }
         
         AppLogger.logViewModel("Pull-to-refresh triggered for seasons")

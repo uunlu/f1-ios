@@ -146,23 +146,14 @@ struct SeasonsView: View {
         .listRowSeparator(.hidden)
     }
     
-    // Async refresh function for the refreshable modifier
     private func performRefresh() async {
-        await withCheckedContinuation { continuation in
-            viewModel.refreshSeasons()
-            
-            // Monitor the refresh state and continue when done
-            let cancellable = viewModel.$isRefreshing
-                .sink { isRefreshing in
-                    if !isRefreshing {
-                        continuation.resume()
-                    }
-                }
-            
-            // Store the cancellable to avoid immediate cleanup
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                _ = cancellable
+        viewModel.refreshSeasons()
+        
+        for await isRefreshing in viewModel.$isRefreshing.values {
+            if !isRefreshing {
+                return  // Exit when refresh completes
             }
         }
     }
-} 
+
+}

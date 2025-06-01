@@ -31,10 +31,10 @@ class LocalWithRemoteRaceWinnerLoader: RaceWinnerLoader {
             // If remote succeeds, cache the data
             if case .success(let raceWinners) = remoteResult {
                 do {
-                    try localLoader.save(raceWinners)
+                    try localLoader.save(raceWinners, for: url)
                 } catch {
                     // Don't fail if caching fails
-                    print("Failed to cache race winners: \(error)")
+                    AppLogger.logError("Failed to cache race winners", error: error)
                 }
             }
             
