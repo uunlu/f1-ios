@@ -98,3 +98,5 @@ iOSInjectionProject/
 /*.gcno
 **/xcshareddata/WorkspaceSettings.xcsettings
 *DS_Store
+~/tmp
+.DS_Store
