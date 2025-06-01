@@ -24,11 +24,7 @@ struct F1AppApp: App {
                     .navigationDestination(for: Season.self) { season in
                         coordinator.makeRaceWinnerView(for: season)
                     }
-                    .navigationDestination(for: RaceWinnerDestination.self) { destination in
-                        coordinator.makeRaceWinnerView(for: destination.season)
-                    }
             }
-            .preferredColorScheme(nil) // Allows system dark/light mode switching
         }
     }
 }

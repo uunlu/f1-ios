@@ -7,34 +7,40 @@
 
 import Foundation
 
-protocol NetworkService {
+public protocol NetworkService {
     func fetch(from request: URLRequest) async -> Result<Data, Error>
 }
 
-
-final class URLSessionNetworkService: NetworkService {
-    enum Error: Swift.Error {
-        case invalidStatusCode
-        case invalidConnection
-    }
-    
+public class URLSessionNetworkService: NetworkService {
     private let session: URLSession
     
-    init(session: URLSession = .shared) {
+    public init(session: URLSession = .shared) {
         self.session = session
     }
     
-    func fetch(from request: URLRequest) async -> Result<Data, Swift.Error> {
+    public func fetch(from request: URLRequest) async -> Result<Data, Error> {
+        print("🌐 Making request to: \(request.url?.absoluteString ?? "unknown")")
+        
         do {
             let (data, response) = try await session.data(for: request)
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                return .failure(Error.invalidStatusCode)
+            
+            guard let httpResponse = response as? HTTPURLResponse else {
+                print("❌ Invalid response type")
+                return .failure(NetworkError.serverError("Invalid response"))
             }
             
+            print("📡 HTTP Response: \(httpResponse.statusCode)")
+            
+            guard 200...299 ~= httpResponse.statusCode else {
+                print("❌ HTTP Error: \(httpResponse.statusCode)")
+                return .failure(NetworkError.serverError("HTTP \(httpResponse.statusCode)"))
+            }
+            
+            print("✅ Received \(data.count) bytes of data")
             return .success(data)
-        }catch {
-            return .failure(Error.invalidConnection)
+        } catch {
+            print("❌ Network error: \(error.localizedDescription)")
+            return .failure(NetworkError.serverError(error.localizedDescription))
         }
     }
 }

@@ -294,94 +294,95 @@ public enum F1Components {
     
     // MARK: - Composite Components
     
-    /// Premium season list item with sophisticated styling
+    /// Optimized season list item for better performance
     public struct SeasonListItem: View {
         private let season: Season
         private let action: () -> Void
         @State private var isPressed = false
         
+        // Pre-compute expensive values to avoid recalculation
+        private let constructorColor: Color
+        private let constructorColorString: String
+        
         public init(season: Season, action: @escaping () -> Void) {
             self.season = season
             self.action = action
+            // Pre-compute team color to avoid repeated string processing
+            self.constructorColor = F1Colors.teamColor(for: season.constructor)
+            self.constructorColorString = season.constructor
         }
         
         public var body: some View {
-            let constructorColor = F1Colors.teamColor(for: season.constructor)
-            let teamGradient = F1Colors.teamGradient(for: season.constructor)
-            
             Button(action: {
-                print("Button tapped for season: \(season.season)") // Debug print
                 action()
             }) {
-                GradientCard(accentColor: constructorColor) {
-                    HStack(alignment: .center, spacing: F1Layout.spacing16) {
-                        // Year badge with gradient
-                        ZStack {
-                            RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
-                                .fill(teamGradient)
-                                .frame(width: 80, height: 50)
+                // Simplified card with reduced complexity
+                HStack(alignment: .center, spacing: 12) {
+                    // Simple year badge
+                    Text(season.season)
+                        .font(.system(size: 18, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 60, height: 40)
+                        .background(constructorColor)
+                        .clipShape(RoundedRectangle(cornerRadius: 8))
+                    
+                    // Simplified color indicator
+                    Rectangle()
+                        .fill(constructorColor)
+                        .frame(width: 4, height: 50)
+                        .clipShape(RoundedRectangle(cornerRadius: 2))
+                    
+                    // Driver and constructor info - simplified
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text(season.driver)
+                            .font(.system(size: 16, weight: .semibold))
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                        
+                        Text(season.constructor)
+                            .font(.system(size: 14, weight: .medium))
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                        
+                        // Simple champion indicator
+                        HStack(spacing: 4) {
+                            Image(systemName: "star.fill")
+                                .font(.system(size: 10))
+                                .foregroundColor(constructorColor)
                             
-                            Text(season.season)
-                                .f1TextStyle(F1Typography.title3, color: F1Colors.f1White)
-                                .fontWeight(.bold)
+                            Text("World Champion")
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(constructorColor)
                         }
-                        .f1ShadowLight()
-                        
-                        // Team color accent bar
-                        TeamColorBar(color: constructorColor, height: 60)
-                        
-                        // Driver and constructor info
-                        VStack(alignment: .leading, spacing: F1Layout.spacing6) {
-                            Text(season.driver)
-                                .f1TextStyle(F1Typography.headline, color: F1Colors.textPrimary)
-                                .lineLimit(1)
-                            
-                            Text(season.constructor)
-                                .f1TextStyle(F1Typography.subheadline, color: F1Colors.textSecondary)
-                                .lineLimit(1)
-                            
-                            // World Champion badge
-                            HStack(spacing: F1Layout.spacing4) {
-                                Image(systemName: "crown.fill")
-                                    .font(.system(size: F1Layout.iconSmall))
-                                    .foregroundColor(constructorColor)
-                                
-                                Text("World Champion")
-                                    .f1TextStyle(F1Typography.caption1, color: constructorColor)
-                                    .fontWeight(.medium)
-                            }
-                        }
-                        
-                        Spacer()
-                        
-                        // Chevron with subtle background
-                        CircleIcon(
-                            size: .small,
-                            icon: "chevron.right",
-                            color: F1Colors.separator,
-                            backgroundColor: F1Colors.separator.opacity(0.3)
-                        )
                     }
+                    
+                    Spacer()
+                    
+                    // Simple chevron
+                    Image(systemName: "chevron.right")
+                        .font(.system(size: 14, weight: .medium))
+                        .foregroundColor(.secondary)
                 }
+                .padding(.horizontal, 16)
+                .padding(.vertical, 12)
+                .background(.regularMaterial)
+                .clipShape(RoundedRectangle(cornerRadius: 12))
                 .scaleEffect(isPressed ? 0.98 : 1.0)
-                .animation(F1Animations.quickSpring, value: isPressed)
+                .animation(.easeInOut(duration: 0.1), value: isPressed)
             }
             .buttonStyle(PlainButtonStyle())
-            .simultaneousGesture(
-                DragGesture(minimumDistance: 0)
-                    .onChanged { _ in
-                        if !isPressed {
-                            withAnimation(F1Animations.quickSpring) {
-                                isPressed = true
-                            }
-                        }
+            .onTapGesture {
+                // Simple press feedback
+                withAnimation(.easeInOut(duration: 0.1)) {
+                    isPressed = true
+                }
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    withAnimation(.easeInOut(duration: 0.1)) {
+                        isPressed = false
                     }
-                    .onEnded { _ in
-                        withAnimation(F1Animations.quickSpring) {
-                            isPressed = false
-                        }
-                    }
-            )
+                }
+                action()
+            }
             .accessibilityElement()
             .accessibilityLabel("Season \(season.season), \(season.driver), \(season.constructor)")
             .accessibilityHint("Tap to view race winners")

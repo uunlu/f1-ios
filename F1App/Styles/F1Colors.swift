@@ -156,22 +156,34 @@ public enum F1Colors {
 }
 
 extension F1Colors {
+    // Optimized team color lookup using dictionary for better performance
+    private static let teamColorMap: [String: Color] = [
+        "mercedes": mercedesColor,
+        "ferrari": ferrariColor,
+        "red bull": redBullColor,
+        "mclaren": mclarenColor,
+        "alpine": alpineColor,
+        "aston martin": astonMartinColor
+    ]
+    
+    private static let teamColorLightMap: [String: Color] = [
+        "mercedes": mercedesLight,
+        "ferrari": ferrariLight,
+        "red bull": redBullLight,
+        "mclaren": mclarenLight,
+        "alpine": alpineLight,
+        "aston martin": astonMartinLight
+    ]
+    
     // Enhanced helper for generating team colors with variants
     public static func teamColor(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        if normalizedName.contains("mercedes") {
-            return mercedesColor
-        } else if normalizedName.contains("ferrari") {
-            return ferrariColor
-        } else if normalizedName.contains("red bull") {
-            return redBullColor
-        } else if normalizedName.contains("mclaren") {
-            return mclarenColor
-        } else if normalizedName.contains("alpine") {
-            return alpineColor
-        } else if normalizedName.contains("aston martin") {
-            return astonMartinColor
+        // Use efficient dictionary lookup instead of multiple contains checks
+        for (key, color) in teamColorMap {
+            if normalizedName.contains(key) {
+                return color
+            }
         }
         
         return f1Grey
@@ -181,18 +193,11 @@ extension F1Colors {
     public static func teamColorLight(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        if normalizedName.contains("mercedes") {
-            return mercedesLight
-        } else if normalizedName.contains("ferrari") {
-            return ferrariLight
-        } else if normalizedName.contains("red bull") {
-            return redBullLight
-        } else if normalizedName.contains("mclaren") {
-            return mclarenLight
-        } else if normalizedName.contains("alpine") {
-            return alpineLight
-        } else if normalizedName.contains("aston martin") {
-            return astonMartinLight
+        // Use efficient dictionary lookup
+        for (key, color) in teamColorLightMap {
+            if normalizedName.contains(key) {
+                return color
+            }
         }
         
         return f1Grey.opacity(0.3)

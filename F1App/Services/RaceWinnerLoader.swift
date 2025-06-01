@@ -7,36 +7,52 @@
 
 import Foundation
 
-protocol RaceWinnerLoader {
+public protocol RaceWinnerLoader {
     func fetch(from url: URL) async -> Result<[RaceWinner], Error>
 }
 
-class RemoteRaceWinnerLoader: RaceWinnerLoader {
-    enum Error: Swift.Error {
+public class RemoteRaceWinnerLoader: RaceWinnerLoader {
+    public enum Error: Swift.Error {
         case decodingFailure
     }
     let networkService: NetworkService
     
-    init(networkService: NetworkService = URLSessionNetworkService()) {
+    public init(networkService: NetworkService = URLSessionNetworkService()) {
         self.networkService = networkService
     }
     
-    func fetch(from url: URL) async -> Result<[RaceWinner], Swift.Error> {
+    public func fetch(from url: URL) async -> Result<[RaceWinner], Swift.Error> {
+        let startTime = CFAbsoluteTimeGetCurrent()
         let request = URLRequest(url: url)
+        
+        AppLogger.logNetwork("Fetching race winners from \(url.absoluteString)")
+        
         switch await networkService.fetch(from: request) {
         case .success(let data):
+            let duration = CFAbsoluteTimeGetCurrent() - startTime
             do {
                 let result = try JSONDecoder().decode([RaceWinner].self, from: data)
-                print(result)
+                AppLogger.logNetworkRequest(
+                    url: url,
+                    success: true,
+                    duration: duration,
+                    dataSize: data.count
+                )
+                AppLogger.logDataLoading(type: "race winners", source: "remote", count: result.count, duration: duration)
                 return .success(result)
-            }catch {
+            } catch {
+                AppLogger.logError("Failed to decode race winners data", error: error)
                 return .failure(Error.decodingFailure)
             }
         case .failure(let failure):
-            print(failure)
+            let duration = CFAbsoluteTimeGetCurrent() - startTime
+            AppLogger.logNetworkRequest(
+                url: url,
+                success: false,
+                duration: duration
+            )
+            AppLogger.logError("Network request failed for race winners", error: failure)
             return .failure(failure)
         }
     }
-    
-    
 }

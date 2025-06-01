@@ -1,0 +1,51 @@
+/* Navigation */
+"seasons_title" = "F1 World Champions";
+"season_details_title" = "Season";
+"race_winners_title" = "Race Winners";
+"back_to_seasons" = "Seasons";
+
+/* Headers and Labels */
+"f1_world_champions" = "F1 World Champions";
+"formula_1_history" = "Formula 1 Championship History";
+"world_champion" = "World Champion";
+"championship" = "Championship";
+"formula_1_world_championship" = "Formula 1 World Championship";
+"drivers_championship_winner" = "Drivers' Championship Winner";
+
+/* Content Labels */
+"season" = "Season";
+"driver" = "Driver";
+"constructor" = "Constructor";
+"round" = "Round";
+"champion" = "CHAMPION";
+
+/* States */
+"loading" = "Loading";
+"loading_content" = "Loading content";
+"last_updated" = "Last updated: %@";
+"pull_to_refresh" = "Pull to refresh";
+
+/* Empty States */
+"no_race_winners_found" = "No race winners found for this season";
+"no_seasons_found" = "No seasons found";
+"no_data_available" = "No data available";
+
+/* Error States */
+"error_title" = "Something went wrong";
+"try_again" = "Try Again";
+"network_error" = "Network connection failed";
+"data_error" = "Unable to load data";
+"cache_error" = "Local data unavailable";
+
+/* Actions */
+"tap_to_view_winners" = "Tap to view race winners";
+"tap_to_retry" = "Tap to retry the operation";
+"show_details" = "Show details";
+"hide_details" = "Hide details";
+
+/* Accessibility */
+"season_button_hint" = "Tap to view race winners for this season";
+"champion_badge" = "Champion badge";
+"team_color_indicator" = "Team color indicator";
+"expand_details" = "Expand to view more details";
+"collapse_details" = "Collapse to hide details"; 
