@@ -43,9 +43,7 @@ struct RaceWinnerView: View {
             }
             
             if viewModel.raceWinners.isEmpty && !viewModel.isLoading {
-                Task {
-                    await viewModel.loadRaceWinners()
-                }
+                viewModel.loadRaceWinners()
             }
         }
     }
@@ -168,11 +166,7 @@ struct RaceWinnerView: View {
         VStack {
             Spacer()
             
-            F1Components.ErrorView(message: message) {
-                Task {
-                    await viewModel.loadRaceWinners()
-                }
-            }
+            F1Components.ErrorView(message: message, retryAction: viewModel.loadRaceWinners)
             .padding(.horizontal, F1Layout.spacing20)
             .fadeScaleTransition(isActive: isAppeared)
             

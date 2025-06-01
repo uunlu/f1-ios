@@ -33,9 +33,7 @@ struct SeasonsView: View {
             .navigationBarHidden(true)
             .onAppear {
                 isAppeared = true
-                Task {
-                    await viewModel.loadSeasons()
-                }
+                viewModel.loadSeasons()
             }
             .onDisappear {
                 viewModel.cancelLoading()
@@ -70,9 +68,7 @@ struct SeasonsView: View {
                 .foregroundColor(.secondary)
             
             Button("Retry") {
-                Task {
-                    await viewModel.loadSeasons()
-                }
+                viewModel.loadSeasons()
             }
             .buttonStyle(.borderedProminent)
         }
@@ -108,7 +104,7 @@ struct SeasonsView: View {
         }
         .listStyle(.plain)
         .refreshable {
-            await viewModel.loadSeasons()
+            viewModel.loadSeasons()
         }
     }
 } 

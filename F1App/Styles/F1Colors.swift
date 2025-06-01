@@ -7,81 +7,83 @@
 
 import SwiftUI
 
-/// Official Formula 1 color palette and theme colors
 public enum F1Colors {
-    // Official Formula 1 brand colors
-    public static let f1Red = Color(red: 1.0, green: 0.0, blue: 0.0) // #FF0000
-    public static let f1Black = Color(red: 0.0, green: 0.0, blue: 0.0) // #000000
-    public static let f1White = Color(red: 1.0, green: 1.0, blue: 1.0) // #FFFFFF
-    public static let f1Grey = Color(red: 0.22, green: 0.22, blue: 0.25) // #38383F
+    public static let f1Red = Color(hex: "E10600") // Official F1 red
+    public static let f1Black = Color(hex: "15151E") // Rich black with hint of blue
+    public static let f1White = Color(hex: "FFFFFF")
+    public static let f1Grey = Color(hex: "38383F")
     
-    // Enhanced F1 Red variants
-    public static let f1RedLight = Color(red: 1.0, green: 0.2, blue: 0.2)
-    public static let f1RedDark = Color(red: 0.8, green: 0.0, blue: 0.0)
+    public static let f1RedLight = Color(hex: "FF3B36")
+    public static let f1RedDark = Color(hex: "BC0603")
     
-    // Team colors with enhanced variants
-    public static let mercedesColor = Color(red: 0.0, green: 0.82, blue: 0.75) // #00D2BE
-    public static let mercedesLight = Color(red: 0.2, green: 0.9, blue: 0.85)
-    public static let mercededDark = Color(red: 0.0, green: 0.6, blue: 0.55)
+    public static let mercedesColor = Color(hex: "00A19C")
+    public static let mercedesLight = Color(hex: "00BCB6")
+    public static let mercededDark = Color(hex: "008681")
     
-    public static let ferrariColor = Color(red: 0.86, green: 0.0, blue: 0.0) // #DC0000
-    public static let ferrariLight = Color(red: 1.0, green: 0.2, blue: 0.2)
-    public static let ferrariDark = Color(red: 0.6, green: 0.0, blue: 0.0)
+    public static let ferrariColor = Color(hex: "F91536")
+    public static let ferrariLight = Color(hex: "FF4258")
+    public static let ferrariDark = Color(hex: "D40016")
     
-    public static let redBullColor = Color(red: 0.024, green: 0.0, blue: 0.94) // #0600EF
-    public static let redBullLight = Color(red: 0.3, green: 0.2, blue: 1.0)
-    public static let redBullDark = Color(red: 0.0, green: 0.0, blue: 0.7)
+    public static let redBullColor = Color(hex: "3671C6")
+    public static let redBullLight = Color(hex: "5A8BD9")
+    public static let redBullDark = Color(hex: "2956A0")
     
-    public static let mclarenColor = Color(red: 1.0, green: 0.53, blue: 0.0) // #FF8700
-    public static let mclarenLight = Color(red: 1.0, green: 0.7, blue: 0.2)
-    public static let mclarenDark = Color(red: 0.8, green: 0.4, blue: 0.0)
+    public static let mclarenColor = Color(hex: "FF8000")
+    public static let mclarenLight = Color(hex: "FF9A33")
+    public static let mclarenDark = Color(hex: "D46A00")
     
-    public static let alpineColor = Color(red: 0.0, green: 0.56, blue: 1.0) // #0090FF
-    public static let alpineLight = Color(red: 0.2, green: 0.7, blue: 1.0)
-    public static let alpineDark = Color(red: 0.0, green: 0.4, blue: 0.8)
+    public static let alpineColor = Color(hex: "0090FF")
+    public static let alpineLight = Color(hex: "33A7FF")
+    public static let alpineDark = Color(hex: "0075D4")
     
-    public static let astonMartinColor = Color(red: 0.0, green: 0.44, blue: 0.38) // #006F62
-    public static let astonMartinLight = Color(red: 0.2, green: 0.6, blue: 0.55)
-    public static let astonMartinDark = Color(red: 0.0, green: 0.3, blue: 0.25)
+    public static let astonMartinColor = Color(hex: "006F62")
+    public static let astonMartinLight = Color(hex: "00897A")
+    public static let astonMartinDark = Color(hex: "004D43")
+    
+    // Additional team colors
+    public static let williams = Color(hex: "00A3E0")
+    public static let alphaTauri = Color(hex: "00293F")
+    public static let alfaRomeo = Color(hex: "A50F2D")
+    public static let haas = Color(hex: "B6BABD")
     
     // App theme colors - adapts to light/dark mode
     public static let primary = f1Red
-    public static let secondary = f1Grey
+    public static let secondary = Color(hex: "1F1F27")
     
     // Enhanced dynamic colors for light/dark mode
     public static let background = Color(
-        light: Color(red: 0.96, green: 0.96, blue: 0.98),
-        dark: Color(red: 0.02, green: 0.02, blue: 0.02)
+        light: Color(hex: "F8F8FA"),
+        dark: Color(hex: "0E0E13")
     )
     
     public static let cardBackground = Color(
         light: f1White,
-        dark: Color(red: 0.08, green: 0.08, blue: 0.09)
+        dark: Color(hex: "1A1A23")
     )
     
     public static let navBackground = Color(
         light: f1White.opacity(0.95),
-        dark: Color(red: 0.05, green: 0.05, blue: 0.06)
+        dark: Color(hex: "15151E").opacity(0.95)
     )
     
     public static let textPrimary = Color(
-        light: Color(red: 0.05, green: 0.05, blue: 0.05),
-        dark: Color(red: 0.98, green: 0.98, blue: 0.98)
+        light: Color(hex: "15151E"),
+        dark: Color(hex: "FFFFFF")
     )
     
     public static let textSecondary = Color(
-        light: Color(red: 0.45, green: 0.45, blue: 0.47),
-        dark: Color(red: 0.78, green: 0.78, blue: 0.80)
+        light: Color(hex: "6E6E78"),
+        dark: Color(hex: "C7C7CC")
     )
     
     public static let textTertiary = Color(
-        light: Color(red: 0.68, green: 0.68, blue: 0.70),
-        dark: Color(red: 0.56, green: 0.56, blue: 0.58)
+        light: Color(hex: "AEAEB2"),
+        dark: Color(hex: "8E8E93")
     )
     
     public static let separator = Color(
-        light: Color(red: 0.94, green: 0.94, blue: 0.96),
-        dark: Color(red: 0.18, green: 0.18, blue: 0.19)
+        light: Color(hex: "EEEEEF"),
+        dark: Color(hex: "2C2C35")
     )
     
     public static let shadow = Color(
@@ -95,8 +97,8 @@ public enum F1Colors {
     )
     
     // Status colors
-    public static let success = Color(red: 0.20, green: 0.78, blue: 0.35)
-    public static let warning = Color(red: 1.0, green: 0.58, blue: 0.0)
+    public static let success = Color(hex: "34C759")
+    public static let warning = Color(hex: "FF9500")
     public static let error = Color(red: 1.0, green: 0.23, blue: 0.19)
     
     // Enhanced gradient colors
@@ -114,8 +116,8 @@ public enum F1Colors {
     
     public static let darkGradient = LinearGradient(
         gradient: Gradient(colors: [
-            Color(red: 0.05, green: 0.05, blue: 0.05),
-            Color(red: 0.15, green: 0.15, blue: 0.16)
+            Color(hex: "15151E"),
+            Color(hex: "252532")
         ]),
         startPoint: .top,
         endPoint: .bottom
@@ -123,8 +125,8 @@ public enum F1Colors {
     
     public static let lightGradient = LinearGradient(
         gradient: Gradient(colors: [
-            Color(red: 0.98, green: 0.98, blue: 1.0),
-            Color(red: 0.94, green: 0.94, blue: 0.98)
+            Color(hex: "FAFAFC"),
+            Color(hex: "F0F0F4")
         ]),
         startPoint: .top,
         endPoint: .bottom
@@ -132,14 +134,8 @@ public enum F1Colors {
     
     public static let backgroundGradient = LinearGradient(
         gradient: Gradient(colors: [
-            Color(
-                light: Color(red: 0.98, green: 0.98, blue: 1.0),
-                dark: Color(red: 0.02, green: 0.02, blue: 0.02)
-            ),
-            Color(
-                light: Color(red: 0.94, green: 0.94, blue: 0.98),
-                dark: Color(red: 0.05, green: 0.05, blue: 0.06)
-            )
+            Color(light: Color(hex: "FAFAFC"), dark: Color(hex: "12121A")),
+            Color(light: Color(hex: "F0F0F4"), dark: Color(hex: "1A1A24"))
         ]),
         startPoint: .top,
         endPoint: .bottom
@@ -156,14 +152,18 @@ public enum F1Colors {
 }
 
 extension F1Colors {
-    // Optimized team color lookup using dictionary for better performance
     private static let teamColorMap: [String: Color] = [
         "mercedes": mercedesColor,
         "ferrari": ferrariColor,
         "red bull": redBullColor,
         "mclaren": mclarenColor,
         "alpine": alpineColor,
-        "aston martin": astonMartinColor
+        "aston martin": astonMartinColor,
+        "williams": williams,
+        "alphatauri": alphaTauri,
+        "alpha tauri": alphaTauri,
+        "alfa romeo": alfaRomeo,
+        "haas": haas
     ]
     
     private static let teamColorLightMap: [String: Color] = [
@@ -175,11 +175,9 @@ extension F1Colors {
         "aston martin": astonMartinLight
     ]
     
-    // Enhanced helper for generating team colors with variants
     public static func teamColor(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        // Use efficient dictionary lookup instead of multiple contains checks
         for (key, color) in teamColorMap {
             if normalizedName.contains(key) {
                 return color
@@ -189,11 +187,9 @@ extension F1Colors {
         return f1Grey
     }
     
-    // Get light variant of team color
     public static func teamColorLight(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        // Use efficient dictionary lookup
         for (key, color) in teamColorLightMap {
             if normalizedName.contains(key) {
                 return color
@@ -203,7 +199,6 @@ extension F1Colors {
         return f1Grey.opacity(0.3)
     }
     
-    // Get gradient for team color
     public static func teamGradient(for constructor: String) -> LinearGradient {
         let baseColor = teamColor(for: constructor)
         let lightColor = teamColorLight(for: constructor)
@@ -215,18 +210,41 @@ extension F1Colors {
         )
     }
     
-    // Get gradient for any color (used by TeamColorBar)
     public static func teamGradient(for color: Color) -> LinearGradient {
         return LinearGradient(
-            gradient: Gradient(colors: [color, color.opacity(0.7)]),
+            gradient: Gradient(colors: [color, color.adjustBrightness(by: -0.15)]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
         )
     }
 }
 
-// Helper extension for dynamic colors
 extension Color {
+    init(hex: String) {
+        let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
+        var int: UInt64 = 0
+        Scanner(string: hex).scanHexInt64(&int)
+        let a, r, g, b: UInt64
+        switch hex.count {
+        case 3:
+            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+        case 6:
+            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+        case 8:
+            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+        default:
+            (a, r, g, b) = (255, 0, 0, 0)
+        }
+
+        self.init(
+            .sRGB,
+            red: Double(r) / 255,
+            green: Double(g) / 255,
+            blue: Double(b) / 255,
+            opacity: Double(a) / 255
+        )
+    }
+    
     init(light: Color, dark: Color) {
         self.init(UIColor { traitCollection in
             switch traitCollection.userInterfaceStyle {
@@ -237,4 +255,14 @@ extension Color {
             }
         })
     }
-} 
+    
+    func adjustBrightness(by percentage: CGFloat) -> Color {
+        let uiColor = UIColor(self)
+        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        
+        uiColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        
+        let newBrightness = max(min(b + percentage, 1.0), 0.0)
+        return Color(UIColor(hue: h, saturation: s, brightness: newBrightness, alpha: a))
+    }
+}
