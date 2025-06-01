@@ -29,4 +29,25 @@ class LocalWithRemoteSeasonLoader: SeasonLoader {
             return await remoteLoader.fetch(from: url)
         }
     }
+    
+    /// Force refresh from remote (used for pull-to-refresh)
+    func forceRefresh(from url: URL) async -> Result<[Season], Error> {
+        AppLogger.logCache("Force refreshing seasons from remote")
+        
+        // Always fetch from remote for pull-to-refresh
+        let remoteResult = await remoteLoader.fetch(from: url)
+        
+        // If remote succeeds, try to update local cache
+        if case .success(let seasons) = remoteResult {
+            do {
+                try localLoader.save(seasons)
+                AppLogger.logCache("Updated local cache with \(seasons.count) seasons")
+            } catch {
+                AppLogger.logError("Failed to update cache after refresh", error: error)
+                // Don't fail the operation if cache update fails
+            }
+        }
+        
+        return remoteResult
+    }
 } 

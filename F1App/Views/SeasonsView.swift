@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct SeasonsView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
@@ -19,9 +20,9 @@ struct SeasonsView: View {
                     .padding()
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
-                if viewModel.isLoading {
+                if viewModel.isLoading && viewModel.seasons.isEmpty {
                     loadingView
-                } else if let error = viewModel.error {
+                } else if let error = viewModel.error, viewModel.seasons.isEmpty {
                     errorView(error)
                 } else if viewModel.seasons.isEmpty {
                     emptyStateView
@@ -90,9 +91,14 @@ struct SeasonsView: View {
         .frame(maxWidth: .infinity, maxHeight: .infinity)
     }
     
-    // Optimized seasons list with better performance
+    // Optimized seasons list with better performance and proper pull-to-refresh
     private var seasonsList: some View {
         List {
+            // Show refresh error at the top if there's an error during refresh
+            if let error = viewModel.error, viewModel.isRefreshing {
+                refreshErrorBanner(error)
+            }
+            
             ForEach(viewModel.seasons, id: \.id) { season in
                 F1Components.SeasonListItem(season: season) {
                     coordinator.showRaceWinners(for: season)
@@ -104,7 +110,59 @@ struct SeasonsView: View {
         }
         .listStyle(.plain)
         .refreshable {
-            viewModel.loadSeasons()
+            await performRefresh()
+        }
+    }
+    
+    // Error banner for refresh failures
+    private func refreshErrorBanner(_ message: String) -> some View {
+        HStack {
+            Image(systemName: "exclamationmark.triangle.fill")
+                .foregroundColor(.orange)
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text("Refresh Failed")
+                    .font(.caption)
+                    .fontWeight(.semibold)
+                Text(message)
+                    .font(.caption2)
+                    .foregroundColor(.secondary)
+            }
+            
+            Spacer()
+            
+            Button("Dismiss") {
+                viewModel.error = nil
+            }
+            .font(.caption)
+            .foregroundColor(.blue)
+        }
+        .padding(.horizontal, 12)
+        .padding(.vertical, 8)
+        .background(Color(.systemYellow).opacity(0.1))
+        .cornerRadius(8)
+        .listRowInsets(EdgeInsets(top: 8, leading: 16, bottom: 8, trailing: 16))
+        .listRowBackground(Color.clear)
+        .listRowSeparator(.hidden)
+    }
+    
+    // Async refresh function for the refreshable modifier
+    private func performRefresh() async {
+        await withCheckedContinuation { continuation in
+            viewModel.refreshSeasons()
+            
+            // Monitor the refresh state and continue when done
+            let cancellable = viewModel.$isRefreshing
+                .sink { isRefreshing in
+                    if !isRefreshing {
+                        continuation.resume()
+                    }
+                }
+            
+            // Store the cancellable to avoid immediate cleanup
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                _ = cancellable
+            }
         }
     }
 } 
