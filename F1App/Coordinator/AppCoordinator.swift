@@ -50,12 +50,6 @@ class AppCoordinator: ObservableObject {
         return RaceWinnerView(viewModel: viewModel, season: season)
             .eraseToAnyView()
     }
-    
-    func makeSeasonDetailsView(for season: Season) -> AnyView {
-        AppLogger.logNavigation("Creating SeasonDetailsView for season \(season.season)")
-        return SeasonDetailsView(season: season)
-            .eraseToAnyView()
-    }
 }
 
 // MARK: - Navigation Destinations
