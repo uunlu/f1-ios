@@ -19,7 +19,6 @@ struct RaceWinnerView: View {
 
     var body: some View {
         ZStack {
-            // Premium background gradient
             F1Colors.backgroundGradient
                 .ignoresSafeArea()
             
@@ -48,13 +47,11 @@ struct RaceWinnerView: View {
         }
     }
     
-    // Season header with premium team branding
     private var seasonHeader: some View {
         let teamColor = F1Colors.teamColor(for: season.constructor)
         let teamGradient = F1Colors.teamGradient(for: season.constructor)
         
         return VStack(alignment: .leading, spacing: F1Layout.spacing20) {
-            // Premium champion card
             ZStack {
                 RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
                     .fill(F1Colors.cardBackground)
@@ -85,8 +82,8 @@ struct RaceWinnerView: View {
                                 .fontWeight(.bold)
                                 .lineLimit(1)
                         }
-                        .padding(.horizontal, 12)
-                        .padding(.vertical, 6)
+                        .padding(.horizontal, F1Layout.spacing12)
+                        .padding(.vertical, F1Layout.spacing6)
                         .background(
                             RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
                                 .fill(teamGradient)
@@ -141,7 +138,6 @@ struct RaceWinnerView: View {
         .fadeScaleTransition(isActive: isAppeared)
     }
     
-    // Loading view with premium shimmer animation
     private var loadingView: some View {
         ScrollView {
             LazyVStack(spacing: F1Layout.spacing16) {
@@ -158,20 +154,18 @@ struct RaceWinnerView: View {
         .scrollBounceBehavior(.basedOnSize)
     }
     
-    // Error view
     private func errorView(_ message: String) -> some View {
         VStack {
             Spacer()
             
             F1Components.ErrorView(message: message, retryAction: viewModel.loadRaceWinners)
-            .padding(.horizontal, F1Layout.spacing20)
-            .fadeScaleTransition(isActive: isAppeared)
+                .padding(.horizontal, F1Layout.spacing20)
+                .fadeScaleTransition(isActive: isAppeared)
             
             Spacer()
         }
     }
     
-    // Race winners list with beautiful animations
     private var raceWinnersList: some View {
         ScrollView {
             LazyVStack(spacing: F1Layout.spacing16) {
@@ -200,8 +194,6 @@ struct RaceWinnerView: View {
         func fetch(from url: URL) async -> Result<[RaceWinner], any Error> {
             return .success([.init(seasonDriverId: nil, seasonConstructorId: "seasonConstructorId", constructorName: "constructorName", driver: .init(driverId: "driverId", familyName: "familyName", givenName: "givenName"), round: "round", seasonName: "seasonName", champion: true)])
         }
-        
-        
     }
     
     let container = DependencyContainer(networkService: MockNetworkService(), localStorage: nil, seasonLoader: MockSeasonLoader(), raceWinnerLoader: MockRaceWinnerLoader())
