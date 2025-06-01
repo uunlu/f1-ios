@@ -37,7 +37,7 @@ class AppCoordinator: ObservableObject {
     }
     
     func makeRaceWinnerView(for season: Season) -> AnyView {
-        let viewModel = dependencyContainer.makeRaceWinnerViewModel()
+        let viewModel = dependencyContainer.makeRaceWinnerViewModel(for: season.season)
         return RaceWinnerView(viewModel: viewModel, season: season)
             .eraseToAnyView()
     }

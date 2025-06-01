@@ -35,6 +35,13 @@ public enum F1Layout {
         trailing: spacing20
     )
     
+    public static let compactInsets = EdgeInsets(
+        top: spacing12,
+        leading: spacing12,
+        bottom: spacing12,
+        trailing: spacing12
+    )
+    
     public static let tightInsets = EdgeInsets(
         top: spacing12,
         leading: spacing16,

@@ -7,92 +7,298 @@
 
 import SwiftUI
 
-/// Reusable UI components for the Formula 1 app
+/// Reusable UI components for the Formula 1 app following iOS best practices
 public enum F1Components {
     
-    // MARK: - Card Views
+    // MARK: - Atomic Components
     
-    /// Premium F1 card with sophisticated styling
-    public struct F1Card<Content: View>: View {
-        private let content: Content
-        private let cornerRadius: CGFloat
-        private let useShadow: Bool
-        private let teamColor: Color?
-        private let useGradient: Bool
+    /// Reusable champion badge with configuration options
+    public struct ChampionBadge: View {
+        public enum Size { case small, standard }
+        
+        public var size: Size = .standard
+        public var text: String = "CHAMPION"
+        public var icon: String = "crown.fill"
+        public var gradientColors: [Color] = [F1Colors.f1Red, F1Colors.f1RedDark]
+        public var animateOnAppear: Bool = false
+        
+        private var dimensions: (width: CGFloat, height: CGFloat, fontSize: CGFloat, iconSize: CGFloat, padding: CGFloat) {
+            switch size {
+            case .small:
+                return (70, 20, 9, 8, 4)
+            case .standard:
+                return (90, 28, 10, 10, 8)
+            }
+        }
         
         public init(
-            cornerRadius: CGFloat = F1Layout.cornerRadiusMedium,
-            useShadow: Bool = true,
-            teamColor: Color? = nil,
-            useGradient: Bool = false,
-            @ViewBuilder content: () -> Content
+            size: Size = .standard,
+            text: String = "CHAMPION",
+            icon: String = "crown.fill",
+            gradientColors: [Color] = [F1Colors.f1Red, F1Colors.f1RedDark],
+            animateOnAppear: Bool = false
         ) {
-            self.content = content()
-            self.cornerRadius = cornerRadius
-            self.useShadow = useShadow
-            self.teamColor = teamColor
-            self.useGradient = useGradient
+            self.size = size
+            self.text = text
+            self.icon = icon
+            self.gradientColors = gradientColors
+            self.animateOnAppear = animateOnAppear
         }
         
         public var body: some View {
-            content
-                .f1Padding(F1Layout.cardInsets)
-                .background(
-                    ZStack {
-                        // Base background
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .fill(F1Colors.cardBackground)
-                        
-                        // Gradient overlay if team color provided
-                        if let teamColor = teamColor, useGradient {
-                            RoundedRectangle(cornerRadius: cornerRadius)
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [
-                                            teamColor.opacity(0.1),
-                                            teamColor.opacity(0.05)
-                                        ]),
-                                        startPoint: .topLeading,
-                                        endPoint: .bottomTrailing
-                                    )
-                                )
-                        }
-                        
-                        // Subtle inner glow
-                        RoundedRectangle(cornerRadius: cornerRadius)
-                            .stroke(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        F1Colors.overlayLight,
-                                        Color.clear
-                                    ]),
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                ),
-                                lineWidth: 1
-                            )
-                    }
-                )
-                .overlay(
-                    RoundedRectangle(cornerRadius: cornerRadius)
-                        .stroke(
-                            teamColor ?? F1Colors.separator.opacity(0.3),
-                            lineWidth: teamColor != nil ? F1Layout.borderWidth : F1Layout.borderWidthThin
-                        )
-                )
-                .f1ShadowHeavy()
-                .accessibilityElement(children: .contain)
+            ZStack {
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
+                    .fill(LinearGradient(
+                        colors: gradientColors,
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    ))
+                    .frame(width: dimensions.width, height: dimensions.height)
+                
+                HStack(spacing: F1Layout.spacing4) {
+                    Image(systemName: icon)
+                        .font(.system(size: dimensions.iconSize, weight: .bold))
+                        .foregroundColor(F1Colors.f1White)
+                    
+                    Text(text)
+                        .font(.system(size: dimensions.fontSize, weight: .bold))
+                        .foregroundColor(F1Colors.f1White)
+                }
+                .padding(.horizontal, dimensions.padding)
+            }
+            .f1ShadowLight()
+            .accessibilityElement(children: .combine)
+            .accessibilityLabel("\(text) badge")
+            .accessibilityAddTraits(.isHeader)
+            .if(animateOnAppear) { view in
+                view.fadeScaleTransition(isActive: true)
+            }
         }
     }
     
-    // MARK: - List Items
+    /// Reusable gradient card container
+    public struct GradientCard<Content: View>: View {
+        public enum Size { case small, standard, large }
+        
+        public var size: Size = .standard
+        public var accentColor: Color
+        public var showBorder: Bool = true
+        public var animateOnAppear: Bool = false
+        public var content: Content
+        
+        private var cornerRadius: CGFloat {
+            switch size {
+            case .small: return F1Layout.cornerRadiusMedium
+            case .standard: return F1Layout.cornerRadiusLarge
+            case .large: return F1Layout.cornerRadiusXLarge
+            }
+        }
+        
+        private var padding: EdgeInsets {
+            switch size {
+            case .small: return F1Layout.compactInsets
+            case .standard: return F1Layout.cardInsets
+            case .large: return F1Layout.wideInsets
+            }
+        }
+        
+        public init(
+            size: Size = .standard,
+            accentColor: Color,
+            showBorder: Bool = true,
+            animateOnAppear: Bool = false,
+            @ViewBuilder content: () -> Content
+        ) {
+            self.size = size
+            self.accentColor = accentColor
+            self.showBorder = showBorder
+            self.animateOnAppear = animateOnAppear
+            self.content = content()
+        }
+        
+        public var body: some View {
+            ZStack {
+                // Base background
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(F1Colors.cardBackground)
+                    .f1ShadowHeavy()
+                
+                // Gradient overlay
+                RoundedRectangle(cornerRadius: cornerRadius)
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                accentColor.opacity(0.12),
+                                accentColor.opacity(0.04)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                
+                // Content
+                content
+                    .f1Padding(padding)
+                
+                // Border
+                if showBorder {
+                    RoundedRectangle(cornerRadius: cornerRadius)
+                        .stroke(
+                            LinearGradient(
+                                gradient: Gradient(colors: [
+                                    accentColor.opacity(0.4),
+                                    accentColor.opacity(0.1)
+                                ]),
+                                startPoint: .topLeading,
+                                endPoint: .bottomTrailing
+                            ),
+                            lineWidth: F1Layout.borderWidth
+                        )
+                }
+            }
+            .if(animateOnAppear) { view in
+                view.fadeScaleTransition(isActive: true)
+            }
+        }
+    }
+    
+    /// Reusable circular icon component
+    public struct CircleIcon: View {
+        public enum Size { case small, standard, large }
+        
+        public var size: Size = .standard
+        public var icon: String
+        public var color: Color
+        public var backgroundColor: Color?
+        
+        private var dimensions: (diameter: CGFloat, iconSize: CGFloat) {
+            switch size {
+            case .small: return (32, F1Layout.iconSmall)
+            case .standard: return (50, F1Layout.iconMedium)
+            case .large: return (60, F1Layout.iconLarge)
+            }
+        }
+        
+        public init(
+            size: Size = .standard,
+            icon: String,
+            color: Color,
+            backgroundColor: Color? = nil
+        ) {
+            self.size = size
+            self.icon = icon
+            self.color = color
+            self.backgroundColor = backgroundColor
+        }
+        
+        public var body: some View {
+            ZStack {
+                Circle()
+                    .fill(
+                        LinearGradient(
+                            gradient: Gradient(colors: [
+                                backgroundColor ?? color,
+                                (backgroundColor ?? color).opacity(0.7)
+                            ]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: dimensions.diameter, height: dimensions.diameter)
+                
+                Image(systemName: icon)
+                    .font(.system(size: dimensions.iconSize, weight: .medium))
+                    .foregroundColor(F1Colors.f1White)
+            }
+            .f1ShadowLight()
+            .accessibilityLabel("\(icon.replacingOccurrences(of: ".", with: " ")) icon")
+        }
+    }
+    
+    /// Reusable gradient divider
+    public struct GradientDivider: View {
+        public var height: CGFloat = 1
+        public var opacity: Double = 1.0
+        
+        public init(height: CGFloat = 1, opacity: Double = 1.0) {
+            self.height = height
+            self.opacity = opacity
+        }
+        
+        public var body: some View {
+            Rectangle()
+                .fill(
+                    LinearGradient(
+                        gradient: Gradient(colors: [
+                            Color.clear,
+                            F1Colors.separator.opacity(opacity),
+                            Color.clear
+                        ]),
+                        startPoint: .leading,
+                        endPoint: .trailing
+                    )
+                )
+                .frame(height: height)
+                .accessibilityHidden(true)
+        }
+    }
+    
+    /// Reusable labeled content component
+    public struct LabeledContent<Content: View>: View {
+        public var label: String
+        public var spacing: CGFloat = F1Layout.spacing12
+        public var content: Content
+        
+        public init(
+            label: String,
+            spacing: CGFloat = F1Layout.spacing12,
+            @ViewBuilder content: () -> Content
+        ) {
+            self.label = label
+            self.spacing = spacing
+            self.content = content()
+        }
+        
+        public var body: some View {
+            VStack(alignment: .leading, spacing: spacing) {
+                Text(label)
+                    .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
+                    .fontWeight(.medium)
+                    .accessibilityAddTraits(.isHeader)
+                
+                content
+            }
+        }
+    }
+    
+    /// Team color accent bar
+    public struct TeamColorBar: View {
+        public var color: Color
+        public var width: CGFloat = 6
+        public var height: CGFloat = 32
+        
+        public init(color: Color, width: CGFloat = 6, height: CGFloat = 32) {
+            self.color = color
+            self.width = width
+            self.height = height
+        }
+        
+        public var body: some View {
+            RoundedRectangle(cornerRadius: F1Layout.spacing3)
+                .fill(F1Colors.teamGradient(for: color))
+                .frame(width: width, height: height)
+                .f1ShadowLight()
+                .accessibilityHidden(true)
+        }
+    }
+    
+    // MARK: - Composite Components
     
     /// Premium season list item with sophisticated styling
     public struct SeasonListItem: View {
         private let season: Season
         private let action: () -> Void
         @State private var isPressed = false
-        @State private var isHovered = false
         
         public init(season: Season, action: @escaping () -> Void) {
             self.season = season
@@ -107,27 +313,7 @@ public enum F1Components {
                 print("Button tapped for season: \(season.season)") // Debug print
                 action()
             }) {
-                ZStack {
-                    // Background card
-                    RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                        .fill(F1Colors.cardBackground)
-                        .f1ShadowHeavy()
-                    
-                    // Team color gradient overlay
-                    RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                        .fill(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    constructorColor.opacity(0.15),
-                                    constructorColor.opacity(0.05),
-                                    Color.clear
-                                ]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            )
-                        )
-                    
-                    // Content
+                GradientCard(accentColor: constructorColor) {
                     HStack(alignment: .center, spacing: F1Layout.spacing16) {
                         // Year badge with gradient
                         ZStack {
@@ -142,15 +328,7 @@ public enum F1Components {
                         .f1ShadowLight()
                         
                         // Team color accent bar
-                        RoundedRectangle(cornerRadius: F1Layout.spacing2)
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [constructorColor, constructorColor.opacity(0.6)]),
-                                    startPoint: .top,
-                                    endPoint: .bottom
-                                )
-                            )
-                            .frame(width: 4, height: 60)
+                        TeamColorBar(color: constructorColor, height: 60)
                         
                         // Driver and constructor info
                         VStack(alignment: .leading, spacing: F1Layout.spacing6) {
@@ -177,31 +355,13 @@ public enum F1Components {
                         Spacer()
                         
                         // Chevron with subtle background
-                        ZStack {
-                            Circle()
-                                .fill(F1Colors.separator.opacity(0.3))
-                                .frame(width: 32, height: 32)
-                            
-                            Image(systemName: "chevron.right")
-                                .font(.system(size: 14, weight: .semibold))
-                                .foregroundColor(F1Colors.textSecondary)
-                        }
-                    }
-                    .f1Padding(F1Layout.cardInsets)
-                    
-                    // Border highlight
-                    RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                        .stroke(
-                            LinearGradient(
-                                gradient: Gradient(colors: [
-                                    constructorColor.opacity(0.4),
-                                    constructorColor.opacity(0.1)
-                                ]),
-                                startPoint: .topLeading,
-                                endPoint: .bottomTrailing
-                            ),
-                            lineWidth: F1Layout.borderWidth
+                        CircleIcon(
+                            size: .small,
+                            icon: "chevron.right",
+                            color: F1Colors.separator,
+                            backgroundColor: F1Colors.separator.opacity(0.3)
                         )
+                    }
                 }
                 .scaleEffect(isPressed ? 0.98 : 1.0)
                 .animation(F1Animations.quickSpring, value: isPressed)
@@ -222,6 +382,10 @@ public enum F1Components {
                         }
                     }
             )
+            .accessibilityElement()
+            .accessibilityLabel("Season \(season.season), \(season.driver), \(season.constructor)")
+            .accessibilityHint("Tap to view race winners")
+            .accessibilityAddTraits(.isButton)
         }
     }
     
@@ -229,7 +393,6 @@ public enum F1Components {
     public struct RaceWinnerItem: View {
         private let race: RaceWinner
         @State private var showDetails = false
-        @State private var isExpanded = false
         
         public init(race: RaceWinner) {
             self.race = race
@@ -239,25 +402,7 @@ public enum F1Components {
             let constructorColor = F1Colors.teamColor(for: race.constructorName)
             let teamGradient = F1Colors.teamGradient(for: race.constructorName)
             
-            ZStack {
-                // Background with team gradient
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                    .fill(F1Colors.cardBackground)
-                    .f1ShadowHeavy()
-                
-                // Team color accent
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                    .fill(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                (race.champion ? F1Colors.f1Red : constructorColor).opacity(0.1),
-                                (race.champion ? F1Colors.f1Red : constructorColor).opacity(0.03)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        )
-                    )
-                
+            GradientCard(accentColor: race.champion ? F1Colors.f1Red : constructorColor) {
                 VStack(alignment: .leading, spacing: F1Layout.spacing16) {
                     // Header section
                     HStack(alignment: .top, spacing: F1Layout.spacing16) {
@@ -291,54 +436,20 @@ public enum F1Components {
                         
                         // Champion badge
                         if race.champion {
-                            ZStack {
-                                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
-                                    .fill(F1Colors.f1Gradient)
-                                    .frame(width: 90, height: 28)
-                                
-                                HStack(spacing: F1Layout.spacing4) {
-                                    Image(systemName: "crown.fill")
-                                        .font(.system(size: 12))
-                                        .foregroundColor(F1Colors.f1White)
-                                    
-                                    Text("CHAMPION")
-                                        .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
-                                        .fontWeight(.bold)
-                                }
-                            }
-                            .f1ShadowLight()
+                            ChampionBadge()
                         }
                     }
                     
                     // Expandable details section
                     if showDetails {
                         VStack(spacing: F1Layout.spacing16) {
-                            // Elegant divider
-                            Rectangle()
-                                .fill(
-                                    LinearGradient(
-                                        gradient: Gradient(colors: [
-                                            Color.clear,
-                                            F1Colors.separator,
-                                            Color.clear
-                                        ]),
-                                        startPoint: .leading,
-                                        endPoint: .trailing
-                                    )
-                                )
-                                .frame(height: 1)
+                            GradientDivider()
                             
                             // Details grid
                             HStack(spacing: F1Layout.spacing24) {
-                                VStack(alignment: .leading, spacing: F1Layout.spacing6) {
-                                    Text("Constructor")
-                                        .f1TextStyle(F1Typography.caption2, color: F1Colors.textTertiary)
-                                        .fontWeight(.medium)
-                                    
+                                LabeledContent(label: "Constructor") {
                                     HStack(spacing: F1Layout.spacing8) {
-                                        RoundedRectangle(cornerRadius: F1Layout.spacing2)
-                                            .fill(constructorColor)
-                                            .frame(width: 3, height: 20)
+                                        TeamColorBar(color: constructorColor, width: 3, height: 20)
                                         
                                         Text(race.constructorName)
                                             .f1TextStyle(F1Typography.callout, color: F1Colors.textPrimary)
@@ -348,11 +459,7 @@ public enum F1Components {
                                 
                                 Spacer()
                                 
-                                VStack(alignment: .trailing, spacing: F1Layout.spacing6) {
-                                    Text("Season")
-                                        .f1TextStyle(F1Typography.caption2, color: F1Colors.textTertiary)
-                                        .fontWeight(.medium)
-                                    
+                                LabeledContent(label: "Season") {
                                     Text(race.seasonName)
                                         .f1TextStyle(F1Typography.callout, color: F1Colors.textPrimary)
                                         .fontWeight(.medium)
@@ -387,27 +494,16 @@ public enum F1Components {
                         }
                     }
                     .buttonStyle(PlainButtonStyle())
+                    .accessibilityLabel(showDetails ? "Hide details" : "Show details")
+                    .accessibilityAddTraits(.isButton)
                 }
-                .f1Padding(F1Layout.cardInsets)
-                
-                // Premium border
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                (race.champion ? F1Colors.f1Red : constructorColor).opacity(0.3),
-                                (race.champion ? F1Colors.f1Red : constructorColor).opacity(0.1)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: F1Layout.borderWidth
-                    )
             }
+            .accessibilityElement(children: .contain)
+            .accessibilityLabel("Round \(race.round), \(race.driver.givenName) \(race.driver.familyName), \(race.constructorName)")
         }
     }
     
-    // MARK: - Headers
+    // MARK: - Headers and Utility Components
     
     /// Elegant section header with sophisticated styling
     public struct SectionHeader: View {
@@ -431,6 +527,7 @@ public enum F1Components {
                         Text(title)
                             .f1TextStyle(F1Typography.title2, color: F1Colors.textPrimary)
                             .fontWeight(.bold)
+                            .accessibilityAddTraits(.isHeader)
                         
                         if let subtitle = subtitle {
                             Text(subtitle)
@@ -449,8 +546,6 @@ public enum F1Components {
             ))
         }
     }
-    
-    // MARK: - Loading Views
     
     /// Premium loading placeholder with sophisticated animation
     public struct LoadingListItem: View {
@@ -543,10 +638,9 @@ public enum F1Components {
                     shimmerOffset = 300
                 }
             }
+            .accessibilityLabel("Loading content")
         }
     }
-    
-    // MARK: - Error Views
     
     /// Premium error view with sophisticated styling
     public struct ErrorView: View {
@@ -559,36 +653,20 @@ public enum F1Components {
         }
         
         public var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                    .fill(F1Colors.cardBackground)
-                    .f1ShadowHeavy()
-                
+            GradientCard(accentColor: F1Colors.error) {
                 VStack(spacing: F1Layout.spacing20) {
                     // Error icon with gradient background
-                    ZStack {
-                        Circle()
-                            .fill(
-                                LinearGradient(
-                                    gradient: Gradient(colors: [
-                                        F1Colors.error.opacity(0.1),
-                                        F1Colors.error.opacity(0.05)
-                                    ]),
-                                    startPoint: .topLeading,
-                                    endPoint: .bottomTrailing
-                                )
-                            )
-                            .frame(width: 80, height: 80)
-                        
-                        Image(systemName: "exclamationmark.triangle.fill")
-                            .font(.system(size: F1Layout.iconLarge, weight: .medium))
-                            .foregroundColor(F1Colors.error)
-                    }
+                    CircleIcon(
+                        size: .large,
+                        icon: "exclamationmark.triangle.fill",
+                        color: F1Colors.error
+                    )
                     
                     VStack(spacing: F1Layout.spacing12) {
                         Text("Something went wrong")
                             .f1TextStyle(F1Typography.title3, color: F1Colors.textPrimary)
                             .fontWeight(.semibold)
+                            .accessibilityAddTraits(.isHeader)
                         
                         Text(message)
                             .f1TextStyle(F1Typography.body, color: F1Colors.textSecondary)
@@ -601,10 +679,26 @@ public enum F1Components {
                             retryAction()
                         }
                         .buttonStyle(F1PrimaryButtonStyle())
+                        .accessibilityHint("Tap to retry the operation")
                     }
                 }
-                .f1Padding(F1Layout.wideInsets)
             }
+        }
+    }
+}
+
+// MARK: - Helper Extensions
+
+extension View {
+    /// Conditional view modifier
+    @ViewBuilder func `if`<Content: View>(
+        _ condition: Bool,
+        transform: (Self) -> Content
+    ) -> some View {
+        if condition {
+            transform(self)
+        } else {
+            self
         }
     }
 }

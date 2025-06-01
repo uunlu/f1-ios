@@ -200,7 +200,7 @@ struct RaceWinnerView: View {
 
 #Preview {
     let container = DependencyContainer.shared
-    let viewModel = container.makeRaceWinnerViewModel()
+    let viewModel = container.makeRaceWinnerViewModel(for: "2020")
     let mockSeason = Season(driver: "Max Verstappen", season: "2024", constructor: "Red Bull Racing")
     
     return RaceWinnerView(viewModel: viewModel, season: mockSeason)

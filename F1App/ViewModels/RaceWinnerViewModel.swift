@@ -14,16 +14,18 @@ class RaceWinnerViewModel: ObservableObject {
     @Published var error: String?
     
     private let raceWinnerLoader: RaceWinnerLoader
+    private let seasonYear: String
     
-    init(raceWinnerLoader: RaceWinnerLoader) {
+    init(raceWinnerLoader: RaceWinnerLoader, for seasonYear: String) {
         self.raceWinnerLoader = raceWinnerLoader
+        self.seasonYear = seasonYear
     }
     
     func loadRaceWinners() async {
         isLoading = true
         error = nil
         
-        switch await raceWinnerLoader.fetch(from: APIConfig.raceWinnersURL(for: "2024")!) {
+        switch await raceWinnerLoader.fetch(from: APIConfig.raceWinnersURL(for: seasonYear)!) {
         case .success(let raceWinners):
             self.raceWinners = raceWinners
             self.isLoading = false

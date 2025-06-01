@@ -22,7 +22,7 @@ struct F1AppApp: App {
                 coordinator.makeSeasonsView()
                     .environmentObject(coordinator)
                     .navigationDestination(for: Season.self) { season in
-                        coordinator.makeSeasonDetailsView(for: season)
+                        coordinator.makeRaceWinnerView(for: season)
                     }
                     .navigationDestination(for: RaceWinnerDestination.self) { destination in
                         coordinator.makeRaceWinnerView(for: destination.season)

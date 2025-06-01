@@ -209,6 +209,15 @@ extension F1Colors {
             endPoint: .bottomTrailing
         )
     }
+    
+    // Get gradient for any color (used by TeamColorBar)
+    public static func teamGradient(for color: Color) -> LinearGradient {
+        return LinearGradient(
+            gradient: Gradient(colors: [color, color.opacity(0.7)]),
+            startPoint: .topLeading,
+            endPoint: .bottomTrailing
+        )
+    }
 }
 
 // Helper extension for dynamic colors

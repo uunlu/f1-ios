@@ -34,8 +34,8 @@ class DependencyContainer {
         SeasonsViewModel(seasonLoader: seasonLoader)
     }
     
-    func makeRaceWinnerViewModel() -> RaceWinnerViewModel {
-        RaceWinnerViewModel(raceWinnerLoader: raceWinnerLoader)
+    func makeRaceWinnerViewModel(for seasonYear: String) -> RaceWinnerViewModel {
+        RaceWinnerViewModel(raceWinnerLoader: raceWinnerLoader, for: seasonYear)
     }
     
     func makeAppCoordinator() -> AppCoordinator {
