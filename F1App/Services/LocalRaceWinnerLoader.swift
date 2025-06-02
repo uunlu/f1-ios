@@ -18,15 +18,13 @@ class LocalRaceWinnerLoader: RaceWinnerLoader {
     
     /// Creates a safe cache key from URL
     private func cacheKey(for url: URL) -> String {
-        // Use the URL path and make it file-system safe
-        // e.g., "api/f1/race-winners/2024" becomes "api-f1-race-winners-2024"
-        let path = url.path.isEmpty ? url.lastPathComponent : url.path
-        return path
-            .replacingOccurrences(of: "/", with: "-")
-            .replacingOccurrences(of: "?", with: "_")
-            .replacingOccurrences(of: "&", with: "_")
-            .replacingOccurrences(of: "=", with: "_")
-            .trimmingCharacters(in: CharacterSet(charactersIn: "-_"))
+        // Generate a consistent hash value from the entire URL
+        let urlString = url.absoluteString
+        return urlString.data(using: .utf8)?
+            .base64EncodedString()
+            .replacingOccurrences(of: "/", with: "_")
+            .replacingOccurrences(of: "+", with: "-")
+            .trimmingCharacters(in: .punctuationCharacters) ?? urlString
     }
     
     func fetch(from url: URL) async -> Result<[RaceWinner], Error> {
