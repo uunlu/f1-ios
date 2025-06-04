@@ -421,8 +421,14 @@ public enum F1Components {
                         
                         // Driver info
                         VStack(alignment: .leading, spacing: F1Layout.spacing4) {
-                            Text("Round \(race.round)")
-                                .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
+                            HStack {
+                                Text("Round \(race.round)")
+                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
+                                Spacer()
+                                Text("Time: \(race.raceCompletionTime)")
+                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
+                                    .bold()
+                            }
                             
                             Text("\(race.driver.fullName)")
                                 .f1TextStyle(F1Typography.title3, color: F1Colors.textPrimary)

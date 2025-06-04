@@ -63,7 +63,7 @@ public struct RaceWinnerDomainModel: Identifiable {
     public let round: String
     public let driver: Driver
     public let constructor: Constructor
-    public let time: String?
+    public let raceCompletionTime: String
     public let isChampion: Bool
     
     /// Domain model for drivers
@@ -90,11 +90,11 @@ public struct RaceWinnerMapper {
                 fullName: dto.driver.familyName
             ),
             constructor: RaceWinnerDomainModel.Constructor(
-                id: dto.seasonConstructorId,
+                id: dto.seasonConstructorId ?? UUID().uuidString,
                 name: dto.constructorName
             ),
-            time: "",
-            isChampion: dto.champion
+            raceCompletionTime: dto.raceCompletionTime,
+            isChampion: dto.isChampion
         )
     }
     

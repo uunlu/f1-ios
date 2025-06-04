@@ -194,7 +194,7 @@ struct RaceWinnerView: View {
     
     class MockRaceWinnerLoader: RaceWinnerLoader {
         func fetch(from url: URL) async -> Result<[RaceWinner], any Error> {
-            return .success([.init(seasonDriverId: nil, seasonConstructorId: "seasonConstructorId", constructorName: "constructorName", driver: .init(driverId: "driverId", familyName: "familyName", givenName: "givenName"), round: "round", seasonName: "seasonName", champion: true)])
+            return .success([.init(seasonDriverId: "seasonDriverId", seasonConstructorId: "seasonConstructorId", constructorName: "constructorName", driver: .init(driverId: "driverId", familyName: "familyName", givenName: "givenName"), round: "round", seasonName: "seasonName", isChampion: true, raceCompletionTime: "raceCompletionTime")])
         }
     }
     
