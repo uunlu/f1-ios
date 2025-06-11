@@ -1,0 +1,75 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release:
+    name: Create Release Build
+    runs-on: macos-14
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Select Xcode
+      run: sudo xcode-select -s /Applications/Xcode_16.1.app/Contents/Developer
+      
+    - name: Get tag name
+      id: tag
+      run: echo "tag=${GITHUB_REF#refs/tags/}" >> $GITHUB_OUTPUT
+    
+    - name: Install SwiftLint
+      run: brew install swiftlint
+        
+    - name: Run SwiftLint
+      run: swiftlint lint
+    
+    - name: Run tests
+      run: |
+        xcodebuild test \
+          -project F1App.xcodeproj \
+          -scheme F1App \
+          -destination 'platform=iOS Simulator,name=iPhone 16 Pro,OS=18.1' \
+          -parallel-testing-enabled NO \
+          CODE_SIGNING_ALLOWED=NO
+    
+    - name: Archive for simulator
+      run: |
+        xcodebuild archive \
+          -project F1App.xcodeproj \
+          -scheme F1App \
+          -archivePath F1App-${{ steps.tag.outputs.tag }}.xcarchive \
+          -destination 'generic/platform=iOS Simulator' \
+          CODE_SIGNING_ALLOWED=NO
+    
+    - name: Create release
+      uses: actions/create-release@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        tag_name: ${{ steps.tag.outputs.tag }}
+        release_name: F1App ${{ steps.tag.outputs.tag }}
+        body: |
+          ## What's Changed
+          
+          - iOS app release for F1 Champions data
+          - Includes offline support and network-aware loading
+          
+          ## Installation
+          
+          This is a simulator build. To run on device, you'll need to build from source with proper code signing.
+        draft: false
+        prerelease: false
+    
+    - name: Upload archive to release
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ steps.create_release.outputs.upload_url }}
+        asset_path: F1App-${{ steps.tag.outputs.tag }}.xcarchive
+        asset_name: F1App-${{ steps.tag.outputs.tag }}.xcarchive.zip
+        asset_content_type: application/zip 
