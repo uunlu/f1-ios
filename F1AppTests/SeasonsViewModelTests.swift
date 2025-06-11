@@ -28,8 +28,8 @@ final class SeasonsViewModelTests: XCTestCase {
         // Given
         let mockSeasonLoader = MockSeasonLoader()
         let testSeasons = [
-            Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull"),
-            Season(driver: "Lewis Hamilton", season: "2022", constructor: "Mercedes")
+            Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2022", constructor: "Mercedes", completed: true)
         ]
         mockSeasonLoader.setSuccessResponse(testSeasons)
         
