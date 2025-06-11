@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import UIKit
 
 /// Local loader for race winner data with caching support
 class LocalRaceWinnerLoader: RaceWinnerLoader {

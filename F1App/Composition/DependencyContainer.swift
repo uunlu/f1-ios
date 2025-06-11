@@ -103,9 +103,26 @@ class DependencyContainer: DependencyProvider {
     static func createDefault() -> DependencyContainer {
         DependencyContainer()
     }
+}
+
+// MARK: - Debug-Only Preview Support
+
+#if DEBUG
+extension DependencyContainer {
+    /// Creates a dependency container with mock implementations for SwiftUI previews
+    /// Only available in DEBUG builds - not shipped to production
+    static func createForPreviews() -> DependencyContainer {
+        let networkService = PreviewMockNetworkService()
+        let localStorage = PreviewInMemoryLocalStorage()
+        return DependencyContainer(
+            networkService: networkService,
+            localStorage: localStorage
+        )
+    }
     
+    /// Creates a dependency container with mock implementations for testing
+    /// Only available in DEBUG builds - not shipped to production
     static func createForTesting() -> DependencyContainer {
-        // Create a container with mock implementations for testing
         let networkService = MockNetworkService()
         let localStorage = InMemoryLocalStorage()
         return DependencyContainer(
@@ -114,88 +131,4 @@ class DependencyContainer: DependencyProvider {
         )
     }
 }
-
-// MARK: - Mock implementations for testing
-
-class MockNetworkService: NetworkService {
-    var responseData: Result<Data, Error> = .failure(NSError(domain: "MockNotConfigured", code: 0))
-    var capturedRequest: URLRequest?
-    
-    func fetch(from request: URLRequest) async -> Result<Data, Error> {
-        capturedRequest = request
-        return responseData
-    }
-    
-    // Helper methods to configure the mock
-    func setSuccessResponse(_ data: Data) {
-        responseData = .success(data)
-    }
-    
-    func setErrorResponse(_ error: Error) {
-        responseData = .failure(error)
-    }
-}
-
-class InMemoryLocalStorage: LocalStorage {
-    private var storage: [String: Data] = [:]
-    private let encoder = JSONEncoder()
-    private let decoder = JSONDecoder()
-    
-    func save<T: Codable>(_ data: T, forKey key: String) throws {
-        let cachedData = CachedData(data: data)
-        let encodedData = try encoder.encode(cachedData)
-        storage[key] = encodedData
-    }
-    
-    func load<T: Codable>(_ type: T.Type, forKey key: String) throws -> CachedData<T>? {
-        guard let data = storage[key] else {
-            return nil
-        }
-        
-        return try decoder.decode(CachedData<T>.self, from: data)
-    }
-    
-    func remove(forKey key: String) throws {
-        storage.removeValue(forKey: key)
-    }
-    
-    func clearAll() throws {
-        storage.removeAll()
-    }
-}
-
-class MockSeasonLoader: SeasonLoader {
-    var result: Result<[Season], Error> = .failure(NSError(domain: "MockNotConfigured", code: 0))
-    var capturedURL: URL?
-    
-    func fetch(from url: URL) async -> Result<[Season], Error> {
-        capturedURL = url
-        return result
-    }
-    
-    func setSuccessResponse(_ seasons: [Season]) {
-        result = .success(seasons)
-    }
-    
-    func setErrorResponse(_ error: Error) {
-        result = .failure(error)
-    }
-}
-
-class MockRaceWinnerLoader: RaceWinnerLoader {
-    var result: Result<[RaceWinner], Error> = .failure(NSError(domain: "MockNotConfigured", code: 0))
-    var capturedURL: URL?
-    
-    func fetch(from url: URL) async -> Result<[RaceWinner], Error> {
-        capturedURL = url
-        return result
-    }
-    
-    func setSuccessResponse(_ raceWinners: [RaceWinner]) {
-        result = .success(raceWinners)
-    }
-    
-    func setErrorResponse(_ error: Error) {
-        result = .failure(error)
-    }
-}
+#endif
