@@ -81,9 +81,7 @@ struct SeasonsView: View {
     private var offlineBanner: some View {
         F1Components.OfflineBanner(
             message: LocalizedStrings.connectToInternet,
-            retryAction: {
-                viewModel.loadSeasons()
-            }
+            retryAction: viewModel.loadSeasons
         )
         .padding(.horizontal)
         .padding(.bottom, F1Layout.spacing8)

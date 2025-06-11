@@ -26,7 +26,7 @@ public struct F1OfflineBanner: View {
             
             // Message
             VStack(alignment: .leading, spacing: F1Layout.spacing2) {
-                Text(String(localized: "no_internet_connection", defaultValue: "No Internet Connection", comment: "No internet banner title"))
+                Text(LocalizedStrings.noInternetConnection)
                     .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
                     .fontWeight(.semibold)
                 
@@ -73,11 +73,10 @@ public struct F1OfflineBanner: View {
 #Preview {
     VStack(spacing: 16) {
         F1OfflineBanner(
-            message: "Connect to the internet to load F1 data",
-            retryAction: {
-                print("Retry tapped")
-            }
-        )
+            message: "Connect to the internet to load F1 data"
+        ) {
+            print("Retry tapped")
+        }
         
         F1OfflineBanner(
             message: "No internet connection and no cached data available"

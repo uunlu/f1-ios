@@ -1,13 +1,13 @@
 //
 //  SeasonsViewModelOfflineTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
-import XCTest
 import Combine
 @testable import F1App
+import XCTest
 
 @MainActor
 final class SeasonsViewModelOfflineTests: XCTestCase {

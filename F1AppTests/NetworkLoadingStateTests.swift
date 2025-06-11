@@ -1,13 +1,13 @@
 //
 //  NetworkLoadingStateTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
-import XCTest
 import Combine
 @testable import F1App
+import XCTest
 
 final class NetworkLoadingStateTests: XCTestCase {
     
@@ -98,7 +98,7 @@ class MockNetworkAwareSeasonLoader: NetworkAwareSeasonLoading {
     var mockResult: Result<[Season], Error> = .success([])
     var forceRefreshResult: Result<[Season], Error> = .success([])
     var hasCachedDataResult = false
-    var getCacheTimestampResult: Date? = nil
+    var getCacheTimestampResult: Date?
     
     func fetch(from url: URL) async -> Result<[Season], Error> {
         fetchCalled = true

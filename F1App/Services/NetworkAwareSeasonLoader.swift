@@ -5,8 +5,8 @@
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 // MARK: - Network Status Protocol
 protocol NetworkStatusProvider {
@@ -98,7 +98,7 @@ class NetworkAwareSeasonLoader: NetworkAwareSeasonLoading {
             // Local failed, check network state
             guard await networkStatusProvider.isConnected else {
                 AppLogger.logNetwork("No network connection and no local data available")
-                return .failure(NetworkAwareError.noInternetAndNoCache)
+                return .failure(NetworkAwareError.noInternetAndNoCache(LocalizedStrings.noInternetAndNoCache))
             }
             
             // Network available, try remote (original behavior)
@@ -148,26 +148,26 @@ class NetworkAwareSeasonLoader: NetworkAwareSeasonLoading {
     
     /// Check if valid cached data exists
     func hasCachedData() -> Bool {
-        return localLoader.hasCachedData()
+        localLoader.hasCachedData()
     }
     
     /// Get cache timestamp
     func getCacheTimestamp() -> Date? {
-        return localLoader.getCacheTimestamp()
+        localLoader.getCacheTimestamp()
     }
 }
 
 // MARK: - Network-Aware Errors
 enum NetworkAwareError: Error, LocalizedError {
     case noInternetConnection
-    case noInternetAndNoCache
+    case noInternetAndNoCache(String)
     
     var errorDescription: String? {
         switch self {
         case .noInternetConnection:
             return LocalizedStrings.networkError
-        case .noInternetAndNoCache:
-            return String(localized: "no_internet_and_no_cache", defaultValue: "No internet connection and no cached data available", comment: "Error when offline with no cache")
+        case .noInternetAndNoCache(let message):
+            return message
         }
     }
 } 

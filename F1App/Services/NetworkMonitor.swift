@@ -5,9 +5,9 @@
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
+import Combine
 import Foundation
 import Network
-import Combine
 
 /// Modern network monitoring service for iOS 16+
 public final class NetworkMonitor: ObservableObject {

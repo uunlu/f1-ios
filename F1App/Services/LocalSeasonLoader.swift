@@ -25,7 +25,7 @@ public class LocalSeasonLoader: SeasonLoader {
             case .dataCorrupted:
                 return LocalizedStrings.dataError
             case .invalidationRequired:
-                return "Cache invalidation required"
+                return LocalizedStrings.cacheInvalidationRequired
             }
         }
     }

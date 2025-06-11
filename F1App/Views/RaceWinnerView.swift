@@ -155,13 +155,17 @@ struct RaceWinnerView: View {
     }
     
     private var raceWinnersList: some View {
-        ScrollView {
+        let items = Array(viewModel.raceWinners.enumerated())
+        return ScrollView {
             LazyVStack(spacing: F1Layout.spacing16) {
-                ForEach(Array(viewModel.raceWinners.enumerated()), id: \.offset) { index, race in
+                ForEach(items, id: \.offset) { index, race in
                     F1Components.RaceWinnerItem(race: race)
                         .padding(.horizontal, F1Layout.spacing20)
                         .fadeScaleTransition(isActive: isAppeared)
-                        .animation(F1Animations.staggered(index: index, baseDelay: F1Animations.staggerDelay), value: isAppeared)
+                        .animation(
+                            F1Animations.staggered(index: index, baseDelay: F1Animations.staggerDelay),
+                            value: isAppeared
+                        )
                 }
             }
             .padding(.vertical, F1Layout.spacing8)

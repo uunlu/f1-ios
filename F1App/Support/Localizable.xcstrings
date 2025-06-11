@@ -28,9 +28,6 @@
         }
       }
     },
-    "cache_error" : {
-      "comment" : "Cache error message"
-    },
     "champion" : {
       "comment" : "Champion badge text",
       "extractionState" : "manual",
@@ -103,18 +100,6 @@
         }
       }
     },
-    "connect_to_internet" : {
-      "comment" : "Connect to internet message",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "Connect to the internet to load F1 data"
-          }
-        }
-      }
-    },
     "constructor" : {
       "comment" : "Constructor label",
       "extractionState" : "manual",
@@ -132,9 +117,6 @@
           }
         }
       }
-    },
-    "data_error" : {
-      "comment" : "Data loading error"
     },
     "dismiss" : {
       "comment" : "Dismiss button text",
@@ -388,9 +370,6 @@
         }
       }
     },
-    "network_error" : {
-      "comment" : "Network error message"
-    },
     "no_data_available" : {
       "comment" : "No data available",
       "extractionState" : "manual",
@@ -405,30 +384,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "No data available"
-          }
-        }
-      }
-    },
-    "no_internet_and_no_cache" : {
-      "comment" : "Error when offline with no cache",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No internet connection and no cached data available"
-          }
-        }
-      }
-    },
-    "no_internet_connection" : {
-      "comment" : "No internet banner title",
-      "extractionState" : "extracted_with_value",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "No Internet Connection"
           }
         }
       }
@@ -663,6 +618,16 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "Season"
+          }
+        }
+      }
+    },
+    "Season %@, %@, %@" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Season %1$@, %2$@, %3$@"
           }
         }
       }

@@ -95,7 +95,7 @@ public struct F1SeasonListItem: View {
             action()
         }
         .accessibilityElement()
-        .accessibilityLabel(String(localized: "season_accessibility_label", defaultValue: "Season \(season.season), \(season.driver), \(season.constructor)", comment: "Season item accessibility label"))
+        .accessibilityLabel("Season \(season.season), \(season.driver), \(season.constructor)")
         .accessibilityHint(LocalizedStrings.tapToViewWinners)
         .accessibilityAddTraits(.isButton)
     }

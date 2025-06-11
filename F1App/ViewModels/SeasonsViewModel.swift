@@ -5,8 +5,8 @@
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
-import Foundation
 import Combine
+import Foundation
 
 @MainActor
 class SeasonsViewModel: ObservableObject {

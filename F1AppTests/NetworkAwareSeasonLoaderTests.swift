@@ -1,13 +1,13 @@
 //
 //  NetworkAwareSeasonLoaderTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
 
-import XCTest
 import Combine
 @testable import F1App
+import XCTest
 
 final class NetworkAwareSeasonLoaderTests: XCTestCase {
     private var networkAwareLoader: NetworkAwareSeasonLoader!
@@ -23,7 +23,9 @@ final class NetworkAwareSeasonLoaderTests: XCTestCase {
         mockRemoteLoader = MockRemoteSeasonLoader()
         mockNetworkProvider = MockNetworkStatusProvider()
         cancellables = Set<AnyCancellable>()
+        // swiftlint:disable force_unwrapping
         testURL = URL(string: "https://test.com/seasons")!
+        // swiftlint:enable force_unwrapping
         
         networkAwareLoader = NetworkAwareSeasonLoader(
             localLoader: mockLocalLoader,
@@ -233,7 +235,7 @@ class MockLocalSeasonLoader: LocalSeasonLoader {
     var hasCachedDataCalled = false
     var getCacheTimestampCalled = false
     var hasCachedDataResult = false
-    var getCacheTimestampResult: Date? = nil
+    var getCacheTimestampResult: Date?
     
     init() {
         // Initialize with a mock localStorage to prevent memory issues
@@ -281,7 +283,7 @@ class MockRemoteSeasonLoader: RemoteSeasonLoader {
 
 extension Season {
     static func mockSeason() -> Season {
-        return Season(
+        Season(
             driver: "Max Verstappen",
             season: "2023",
             constructor: "Red Bull Racing Honda RBPT"
