@@ -35,8 +35,8 @@ public struct Driver: Codable {
     public let givenName: String
     
     private enum CodingKeys: String, CodingKey {
-        case driverId
-        case familyName
-        case givenName
+        case driverId = "driver_id"
+        case familyName = "family_name"
+        case givenName = "given_name"
     }
 }
