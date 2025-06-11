@@ -2,6 +2,7 @@
 "seasons_title" = "F1 Weltmeister";
 "season_details_title" = "Saison";
 "race_winners_title" = "Rennsieger";
+"race_winners_navigation_title" = "Rennsieger - %@";
 "back_to_seasons" = "Saisons";
 
 /* Headers and Labels */
@@ -11,6 +12,7 @@
 "championship" = "Meisterschaft";
 "formula_1_world_championship" = "Formel 1 Weltmeisterschaft";
 "drivers_championship_winner" = "Fahrer-Weltmeister";
+"race_winners" = "Rennsieger";
 
 /* Content Labels */
 "season" = "Saison";
