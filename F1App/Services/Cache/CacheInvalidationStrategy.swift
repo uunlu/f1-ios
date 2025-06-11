@@ -21,7 +21,7 @@ public struct TimeBased: CacheInvalidationStrategy {
     }
     
     public func shouldInvalidateCache(for key: String, cachedDate: Date) -> Bool {
-        return Date().timeIntervalSince(cachedDate) > timeInterval
+        Date().timeIntervalSince(cachedDate) > timeInterval
     }
 }
 
@@ -50,7 +50,7 @@ public struct Manual: CacheInvalidationStrategy {
     }
     
     public func shouldInvalidateCache(for key: String, cachedDate: Date) -> Bool {
-        return shouldInvalidate
+        shouldInvalidate
     }
 }
 
@@ -81,29 +81,29 @@ public struct Composite: CacheInvalidationStrategy {
 
 // MARK: - Convenience Extensions
 
-extension CacheInvalidationStrategy {
+public extension CacheInvalidationStrategy {
     /// Default time-based strategy: 1 hour
-    public static func oneHour() -> CacheInvalidationStrategy {
-        return TimeBased(timeInterval: 3600)
+    static func oneHour() -> CacheInvalidationStrategy {
+        TimeBased(timeInterval: 3600)
     }
     
     /// Default time-based strategy: 30 minutes
-    public static func thirtyMinutes() -> CacheInvalidationStrategy {
-        return TimeBased(timeInterval: 1800)
+    static func thirtyMinutes() -> CacheInvalidationStrategy {
+        TimeBased(timeInterval: 1800)
     }
     
     /// Default time-based strategy: 5 minutes
-    public static func fiveMinutes() -> CacheInvalidationStrategy {
-        return TimeBased(timeInterval: 300)
+    static func fiveMinutes() -> CacheInvalidationStrategy {
+        TimeBased(timeInterval: 300)
     }
     
     /// Never invalidate (useful for permanent data)
-    public static func never() -> CacheInvalidationStrategy {
-        return TimeBased(timeInterval: .greatestFiniteMagnitude)
+    static func never() -> CacheInvalidationStrategy {
+        TimeBased(timeInterval: .greatestFiniteMagnitude)
     }
     
     /// Always invalidate (useful for force refresh)
-    public static func always() -> CacheInvalidationStrategy {
-        return Manual(shouldInvalidate: true)
+    static func always() -> CacheInvalidationStrategy {
+        Manual(shouldInvalidate: true)
     }
 } 

@@ -15,7 +15,8 @@ public class RemoteRaceWinnerLoader: RaceWinnerLoader {
     public enum Error: Swift.Error {
         case decodingFailure
     }
-    let networkService: NetworkService
+    
+    private let networkService: NetworkService
     
     public init(networkService: NetworkService = URLSessionNetworkService()) {
         self.networkService = networkService
@@ -38,7 +39,10 @@ public class RemoteRaceWinnerLoader: RaceWinnerLoader {
                     duration: duration,
                     dataSize: data.count
                 )
-                AppLogger.logDataLoading(type: "race winners", source: "remote", count: result.count, duration: duration)
+                AppLogger.logDataLoading(type: "race winners",
+                                         source: "remote",
+                                         count: result.count,
+                                         duration: duration)
                 return .success(result)
             } catch {
                 AppLogger.logError("Failed to decode race winners data", error: error)
@@ -79,10 +83,10 @@ public struct RaceWinnerDomainModel: Identifiable {
     }
 }
 
-public struct RaceWinnerMapper {
+public enum RaceWinnerMapper {
     /// Convert a DTO to a domain model
     static func toDomain(_ dto: RaceWinner) -> RaceWinnerDomainModel {
-        return RaceWinnerDomainModel(
+        RaceWinnerDomainModel(
             season: dto.seasonName,
             round: dto.round,
             driver: RaceWinnerDomainModel.Driver(
@@ -100,6 +104,6 @@ public struct RaceWinnerMapper {
     
     /// Convert multiple DTOs to domain models
     static func toDomain(_ dtos: [RaceWinner]) -> [RaceWinnerDomainModel] {
-        return dtos.map(toDomain)
+        dtos.map(toDomain)
     }
 }

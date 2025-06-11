@@ -17,6 +17,10 @@ excluded:
 disabled_rules:
   - trailing_whitespace # Handled by editor
   - todo # Allow TODO comments during development
+  - marks_required # No longer requiring MARK comments
+  - public_docs_required
+  - conditional_returns_on_newline
+  - switch_case_on_newline
 
 # Some rules are only opt-in
 opt_in_rules:
@@ -178,7 +182,7 @@ custom_rules:
   # Discourage force unwrapping
   no_force_unwrapping:
     name: "No Force Unwrapping"
-    regex: "\\!\\s*(?!\\=)"
+    regex: (?<!\")\\w+\\!\\s*(?!\\=|\\.)|(\\?\\?)\\!(?!\")
     message: "Prefer safe unwrapping over force unwrapping"
     severity: warning
 
@@ -187,7 +191,7 @@ custom_rules:
     name: "Public Documentation Required"
     regex: "^\\s*(public|open)\\s+(class|struct|enum|func|var|let)"
     message: "Public APIs should be documented"
-    severity: warning
+    severity: 
 
 # Additional configuration
 reporter: "xcode" # Options: xcode, json, csv, checkstyle, junit, html, emoji

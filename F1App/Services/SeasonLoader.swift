@@ -29,7 +29,7 @@ public class RemoteSeasonLoader: SeasonLoader {
                 let seasons = try JSONDecoder().decode([Season].self, from: data)
                 print("✅ Successfully decoded \(seasons.count) seasons from network")
                 return .success(seasons)
-            }catch {
+            } catch {
                 print("❌ JSON decode error: \(error.localizedDescription)")
                 print("🔄 JSON decode failed, using mock data")
                 return .success(getMockSeasons())
@@ -43,7 +43,7 @@ public class RemoteSeasonLoader: SeasonLoader {
     
     // Mock data for testing when backend is not available
     private func getMockSeasons() -> [Season] {
-        return [
+        [
             Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull"),
             Season(driver: "Max Verstappen", season: "2022", constructor: "Red Bull"),
             Season(driver: "Max Verstappen", season: "2021", constructor: "Red Bull"),

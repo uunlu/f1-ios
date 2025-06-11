@@ -188,19 +188,43 @@ struct RaceWinnerView: View {
 #Preview {
     class MockSeasonLoader: SeasonLoader {
         func fetch(from url: URL) async -> Result<[Season], any Error> {
-            return .success([.init(driver: "driver", season: "2024", constructor: "constructor")])
+            .success([.init(driver: "driver", season: "2024", constructor: "constructor")])
         }
     }
     
     class MockRaceWinnerLoader: RaceWinnerLoader {
         func fetch(from url: URL) async -> Result<[RaceWinner], any Error> {
-            return .success([.init(seasonDriverId: "seasonDriverId", seasonConstructorId: "seasonConstructorId", constructorName: "constructorName", driver: .init(driverId: "driverId", familyName: "familyName", givenName: "givenName"), round: "round", seasonName: "seasonName", isChampion: true, raceCompletionTime: "raceCompletionTime")])
+            .success([
+                .init(
+                    seasonDriverId: "seasonDriverId",
+                    seasonConstructorId: "seasonConstructorId",
+                    constructorName: "constructorName",
+                    driver: .init(
+                        driverId: "driverId",
+                        familyName: "familyName",
+                        givenName: "givenName"
+                    ),
+                    round: "round",
+                    seasonName: "seasonName",
+                    isChampion: true,
+                    raceCompletionTime: "raceCompletionTime"
+                )
+            ])
         }
     }
     
-    let container = DependencyContainer(networkService: MockNetworkService(), localStorage: nil, seasonLoader: MockSeasonLoader(), raceWinnerLoader: MockRaceWinnerLoader())
+    let container = DependencyContainer(
+        networkService: MockNetworkService(),
+        localStorage: nil,
+        seasonLoader: MockSeasonLoader(),
+        raceWinnerLoader: MockRaceWinnerLoader()
+    )
     let viewModel = container.makeRaceWinnerViewModel(for: "2020")
-    let mockSeason = Season(driver: "Max Verstappen", season: "2024", constructor: "Red Bull Racing")
+    let mockSeason = Season(
+        driver: "Max Verstappen",
+        season: "2024",
+        constructor: "Red Bull Racing"
+    )
     
     return RaceWinnerView(viewModel: viewModel, season: mockSeason)
 }

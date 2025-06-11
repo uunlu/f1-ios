@@ -5,19 +5,10 @@
 //  Created by Ugur Unlu on 29/05/2025.
 //
 
-import XCTest
 @testable import F1App
+import XCTest
 
 final class F1AppTests: XCTestCase {
-    
-    override func setUp() {
-        super.setUp()
-    }
-    
-    override func tearDown() {
-        super.tearDown()
-    }
-    
     // MARK: - SeasonsViewModel Tests
     
     @MainActor
@@ -166,9 +157,10 @@ final class F1AppTests: XCTestCase {
     func testMockNetworkServiceSuccess() async {
         // Given
         let mockNetwork = MockNetworkService()
-        let testData = "Test response".data(using: .utf8)!
+        let testData = Data("Test response".utf8)
         mockNetwork.setSuccessResponse(testData)
         
+        // swiftlint:disable:next force_unwrapping
         let request = URLRequest(url: URL(string: "https://test.com")!)
         
         // When
@@ -189,6 +181,7 @@ final class F1AppTests: XCTestCase {
         let testError = NSError(domain: "NetworkError", code: 500)
         mockNetwork.setErrorResponse(testError)
         
+        // swiftlint:disable:next force_unwrapping
         let request = URLRequest(url: URL(string: "https://test.com")!)
         
         // When
@@ -332,9 +325,11 @@ final class F1AppTests: XCTestCase {
         // Given
         let localStorage = InMemoryLocalStorage()
         let testSeasons = [Season(driver: "Test Driver", season: "2023", constructor: "Test Team")]
+        // swiftlint:disable:next force_try
         try! localStorage.save(testSeasons, forKey: "seasons")
         
         let loader = LocalSeasonLoader(localStorage: localStorage)
+        // swiftlint:disable:next force_unwrapping
         let testURL = URL(string: "http://test.com")!
         
         // When
@@ -354,6 +349,7 @@ final class F1AppTests: XCTestCase {
         // Given
         let localStorage = InMemoryLocalStorage()
         let loader = LocalSeasonLoader(localStorage: localStorage)
+        // swiftlint:disable:next force_unwrapping
         let testURL = URL(string: "http://test.com")!
         
         // When
@@ -374,10 +370,12 @@ final class F1AppTests: XCTestCase {
         // Given
         let mockNetwork = MockNetworkService()
         let testSeasons = [Season(driver: "Remote Driver", season: "2023", constructor: "Remote Team")]
+        // swiftlint:disable:next force_try
         let jsonData = try! JSONEncoder().encode(testSeasons)
         mockNetwork.setSuccessResponse(jsonData)
         
         let loader = RemoteSeasonLoader(networkService: mockNetwork)
+        // swiftlint:disable:next force_unwrapping
         let testURL = URL(string: "http://test.com")!
         
         // When
@@ -400,6 +398,7 @@ final class F1AppTests: XCTestCase {
         mockNetwork.setErrorResponse(networkError)
         
         let loader = RemoteSeasonLoader(networkService: mockNetwork)
+        // swiftlint:disable:next force_unwrapping
         let testURL = URL(string: "http://test.com")!
         
         // When

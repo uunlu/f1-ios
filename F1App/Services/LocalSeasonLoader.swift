@@ -59,7 +59,8 @@ public class LocalSeasonLoader: SeasonLoader {
                 }
             }
             
-            self.localStorage = LocalSeasonLoader.sharedFileStorage ?? LocalSeasonLoader.sharedUserDefaultsStorage ?? UserDefaultsLocalStorage()
+            self.localStorage = LocalSeasonLoader.sharedFileStorage ??
+            LocalSeasonLoader.sharedUserDefaultsStorage ?? UserDefaultsLocalStorage()
         }
         
         self.invalidationStrategy = invalidationStrategy
@@ -103,7 +104,6 @@ public class LocalSeasonLoader: SeasonLoader {
             
             print("✅ Loaded seasons from local cache (cached: \(cachedData.timestamp))")
             return .success(cachedData.data)
-            
         } catch {
             if error is FileBasedLocalStorage.StorageError {
                 return .failure(LocalError.storageNotAvailable)

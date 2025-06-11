@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct APIConfig {
+enum APIConfig {
     static let environment: Environment = {
         #if DEBUG
         return .debug
@@ -17,10 +17,8 @@ struct APIConfig {
     }()
     
     static var baseURL: String {
-        return environment.baseURL
+        environment.baseURL
     }
-    
-    // New functions to generate specific API endpoint URLs
     
     /// Creates URL for getting results for a specific year
     static func resultsURL(year: Int) -> URL? {

@@ -198,14 +198,15 @@ public struct F1Glassmorphism: ViewModifier {
     }
 }
 
-extension View {
+/// Extension for applying standard F1 style modifiers to views
+public extension View {
     /// Apply standard F1 padding to view
-    public func f1Padding(_ padding: EdgeInsets = F1Layout.contentInsets) -> some View {
+    func f1Padding(_ padding: EdgeInsets = F1Layout.contentInsets) -> some View {
         self.modifier(F1Padding(padding))
     }
     
     /// Apply premium F1 shadow
-    public func f1Shadow(
+    func f1Shadow(
         radius: CGFloat = F1Layout.shadowRadius,
         opacity: CGFloat = F1Layout.shadowOpacity,
         offset: CGSize = F1Layout.shadowOffset,
@@ -215,7 +216,7 @@ extension View {
     }
     
     /// Apply light shadow
-    public func f1ShadowLight() -> some View {
+    func f1ShadowLight() -> some View {
         self.f1Shadow(
             radius: F1Layout.shadowRadiusLight,
             opacity: F1Layout.shadowOpacity,
@@ -224,7 +225,7 @@ extension View {
     }
     
     /// Apply heavy shadow
-    public func f1ShadowHeavy() -> some View {
+    func f1ShadowHeavy() -> some View {
         self.f1Shadow(
             radius: F1Layout.shadowRadiusHeavy,
             opacity: F1Layout.shadowOpacityHeavy,
@@ -233,7 +234,7 @@ extension View {
     }
     
     /// Apply glassmorphism effect
-    public func f1Glassmorphism(intensity: Double = 0.1) -> some View {
+    func f1Glassmorphism(intensity: Double = 0.1) -> some View {
         self.modifier(F1Glassmorphism(intensity: intensity))
     }
-} 
+}

@@ -10,6 +10,10 @@ import SwiftUI
 /// Formula 1 Style Guide - Main entry point for styling components
 public enum F1Style {
     /// Initializes all global styling for the app
+    ///
+    /// This method should be called during app initialization to ensure
+    /// consistent styling across the entire application. It configures the
+    /// appearance of navigation bars, tab bars, and list components.
     public static func configureAppearance() {
         configureNavigationBar()
         configureTabBar()
@@ -55,4 +59,4 @@ public enum F1Style {
         UITableView.appearance().backgroundColor = UIColor(F1Colors.background)
         UITableViewCell.appearance().backgroundColor = UIColor.clear
     }
-} 
+}

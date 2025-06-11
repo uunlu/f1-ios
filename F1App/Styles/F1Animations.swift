@@ -32,7 +32,7 @@ public enum F1Animations {
     
     // Staggered animations
     public static func staggered(index: Int, baseDelay: Double = 0.05) -> Animation {
-        return Animation.spring(response: 0.4, dampingFraction: 0.75)
+        Animation.spring(response: 0.4, dampingFraction: 0.75)
             .delay(Double(index) * baseDelay)
     }
     
@@ -53,19 +53,19 @@ public enum F1Animations {
 }
 
 // Animation view modifiers
-extension View {
+public extension View {
     /// Apply fade scale transition to view
-    public func fadeScaleTransition(isActive: Bool) -> some View {
+    func fadeScaleTransition(isActive: Bool) -> some View {
         self.modifier(FadeScaleTransition(isActive: isActive))
     }
     
     /// Apply pulsing animation to view
-    public func pulsingAnimation(pulsing: Bool = true) -> some View {
+    func pulsingAnimation(pulsing: Bool = true) -> some View {
         self.modifier(PulsingAnimationModifier(pulsing: pulsing))
     }
     
     /// Apply racing stripe animation to view
-    public func racingStripeAnimation(isActive: Bool = true) -> some View {
+    func racingStripeAnimation(isActive: Bool = true) -> some View {
         self.modifier(RacingStripeAnimationModifier(isActive: isActive))
     }
 }

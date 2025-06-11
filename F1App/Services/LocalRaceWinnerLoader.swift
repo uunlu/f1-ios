@@ -31,7 +31,11 @@ class LocalRaceWinnerLoader: RaceWinnerLoader {
         do {
             let key = cacheKey(for: url)
             guard let cachedData = try localStorage.load([RaceWinner].self, forKey: key) else {
-                return .failure(NSError(domain: "Cache", code: 404, userInfo: [NSLocalizedDescriptionKey: "No cached data found"]))
+                return .failure(NSError(
+                    domain: "Cache",
+                    code: 404,
+                    userInfo: [NSLocalizedDescriptionKey: "No cached data found"]
+                ))
             }
             
             AppLogger.logCache("Loaded \(cachedData.data.count) race winners from cache")

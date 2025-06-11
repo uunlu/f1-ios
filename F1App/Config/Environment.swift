@@ -15,9 +15,7 @@ enum Environment {
     var baseURL: String {
         switch self {
         case .debug:
-//            return "https://89ee-128-77-59-67.ngrok-free.app/api/f1"
             return "http://localhost:8080/f1"
-//            return "http://192.168.2.9:8080/api/f1"
         case .development:
             return "http://dev-api.example.com/api"
         case .production:

@@ -56,13 +56,14 @@ public struct F1TextStyle: ViewModifier {
     }
 }
 
-extension View {
+/// Extension to add F1 text style functionality to Text views
+public extension View {
     /// Apply F1 text style to view
-    public func f1TextStyle(
+    func f1TextStyle(
         _ font: Font = F1Typography.body,
         color: Color = F1Colors.textPrimary,
         lineSpacing: CGFloat = F1Typography.standardLineHeight
     ) -> some View {
         self.modifier(F1TextStyle(font: font, color: color, lineSpacing: lineSpacing))
     }
-} 
+}

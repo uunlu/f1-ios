@@ -77,7 +77,7 @@ class RaceWinnerViewModel: ObservableObject {
     
     @MainActor
     private func updateState(error: String?, winners: [RaceWinnerDomainModel]) {
-        self.hasChampion = winners.contains(where: { $0.isChampion })
+        self.hasChampion = winners.contains { $0.isChampion }
         self.error = error
         self.raceWinners = winners
         self.isLoading = false

@@ -178,10 +178,8 @@ extension F1Colors {
     public static func teamColor(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        for (key, color) in teamColorMap {
-            if normalizedName.contains(key) {
-                return color
-            }
+        for (key, color) in teamColorMap where normalizedName.contains(key) {
+            return color
         }
         
         return f1Grey
@@ -190,10 +188,8 @@ extension F1Colors {
     public static func teamColorLight(for constructor: String) -> Color {
         let normalizedName = constructor.lowercased()
         
-        for (key, color) in teamColorLightMap {
-            if normalizedName.contains(key) {
-                return color
-            }
+        for (key, color) in teamColorLightMap where normalizedName.contains(key) {
+            return color
         }
         
         return f1Grey.opacity(0.3)
@@ -211,7 +207,7 @@ extension F1Colors {
     }
     
     public static func teamGradient(for color: Color) -> LinearGradient {
-        return LinearGradient(
+        LinearGradient(
             gradient: Gradient(colors: [color, color.adjustBrightness(by: -0.15)]),
             startPoint: .topLeading,
             endPoint: .bottomTrailing
@@ -224,24 +220,24 @@ extension Color {
         let hex = hex.trimmingCharacters(in: CharacterSet.alphanumerics.inverted)
         var int: UInt64 = 0
         Scanner(string: hex).scanHexInt64(&int)
-        let a, r, g, b: UInt64
+        let alpha, red, green, blue: UInt64
         switch hex.count {
         case 3:
-            (a, r, g, b) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
+            (alpha, red, green, blue) = (255, (int >> 8) * 17, (int >> 4 & 0xF) * 17, (int & 0xF) * 17)
         case 6:
-            (a, r, g, b) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
+            (alpha, red, green, blue) = (255, int >> 16, int >> 8 & 0xFF, int & 0xFF)
         case 8:
-            (a, r, g, b) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
+            (alpha, red, green, blue) = (int >> 24, int >> 16 & 0xFF, int >> 8 & 0xFF, int & 0xFF)
         default:
-            (a, r, g, b) = (255, 0, 0, 0)
+            (alpha, red, green, blue) = (255, 0, 0, 0)
         }
 
         self.init(
             .sRGB,
-            red: Double(r) / 255,
-            green: Double(g) / 255,
-            blue: Double(b) / 255,
-            opacity: Double(a) / 255
+            red: Double(red) / 255,
+            green: Double(green) / 255,
+            blue: Double(blue) / 255,
+            opacity: Double(alpha) / 255
         )
     }
     
@@ -258,11 +254,11 @@ extension Color {
     
     func adjustBrightness(by percentage: CGFloat) -> Color {
         let uiColor = UIColor(self)
-        var h: CGFloat = 0, s: CGFloat = 0, b: CGFloat = 0, a: CGFloat = 0
+        var hue: CGFloat = 0, saturation: CGFloat = 0, brightness: CGFloat = 0, alpha: CGFloat = 0
         
-        uiColor.getHue(&h, saturation: &s, brightness: &b, alpha: &a)
+        uiColor.getHue(&hue, saturation: &saturation, brightness: &brightness, alpha: &alpha)
         
-        let newBrightness = max(min(b + percentage, 1.0), 0.0)
-        return Color(UIColor(hue: h, saturation: s, brightness: newBrightness, alpha: a))
+        let newBrightness = max(min(brightness + percentage, 1.0), 0.0)
+        return Color(UIColor(hue: hue, saturation: saturation, brightness: newBrightness, alpha: alpha))
     }
 }

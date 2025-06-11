@@ -1,3 +1,10 @@
+//
+//  AppCoordinator.swift
+//  F1App
+//
+//  Created by Ugur Unlu on 29/05/2025.
+//
+
 import SwiftUI
 
 @MainActor

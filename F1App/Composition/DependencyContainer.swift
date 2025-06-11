@@ -19,7 +19,6 @@ protocol DependencyProvider {
 // MARK: - Container Implementation
 
 class DependencyContainer: DependencyProvider {
-    
     // MARK: Properties
     private(set) var networkService: NetworkService
     private(set) var localStorage: LocalStorage
@@ -102,7 +101,7 @@ class DependencyContainer: DependencyProvider {
     // MARK: Factory Methods - Container Creation
     
     static func createDefault() -> DependencyContainer {
-        return DependencyContainer()
+        DependencyContainer()
     }
     
     static func createForTesting() -> DependencyContainer {
@@ -115,7 +114,6 @@ class DependencyContainer: DependencyProvider {
         )
     }
 }
-
 
 // MARK: - Mock implementations for testing
 
@@ -201,5 +199,3 @@ class MockRaceWinnerLoader: RaceWinnerLoader {
         result = .failure(error)
     }
 }
-
-

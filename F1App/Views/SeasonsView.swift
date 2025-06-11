@@ -1,5 +1,12 @@
-import SwiftUI
+//
+//  SeasonsView.swift
+//  F1App
+//
+//  Created by Ugur Unlu on 31/05/2025.
+//
+
 import Combine
+import SwiftUI
 
 struct SeasonsView: View {
     @EnvironmentObject private var coordinator: AppCoordinator
@@ -149,11 +156,8 @@ struct SeasonsView: View {
     private func performRefresh() async {
         viewModel.refreshSeasons()
         
-        for await isRefreshing in viewModel.$isRefreshing.values {
-            if !isRefreshing {
-                return  // Exit when refresh completes
-            }
+        for await isRefreshing in viewModel.$isRefreshing.values where !isRefreshing {
+            return  // Exit when refresh completes
         }
     }
-
 }

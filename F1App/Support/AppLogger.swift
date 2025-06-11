@@ -1,10 +1,16 @@
+//
+//  AppLogger.swift
+//  F1App
+//
+//  Created by Ugur Unlu on 31/05/2025.
+//
+
 import Foundation
 import os.log
 
 /// Centralized logging system for the F1 app using Apple's unified logging
 /// This provides proper logging that respects production vs debug builds
 public enum AppLogger {
-    
     // MARK: - Log Categories
     private static let subsystem = Bundle.main.bundleIdentifier ?? "com.f1app"
     
@@ -14,7 +20,7 @@ public enum AppLogger {
     public static let navigation = Logger(subsystem: subsystem, category: "Navigation")
     public static let performance = Logger(subsystem: subsystem, category: "Performance")
     public static let error = Logger(subsystem: subsystem, category: "Error")
-    public static let ui = Logger(subsystem: subsystem, category: "UI")
+    public static let userInterface = Logger(subsystem: subsystem, category: "UI")
     
     // MARK: - Convenience Methods
     
@@ -54,7 +60,7 @@ public enum AppLogger {
     
     /// Log UI events and state changes
     public static func logUI(_ message: String, level: OSLogType = .info) {
-        ui.log(level: level, "\(message)")
+        userInterface.log(level: level, "\(message)")
     }
     
     // MARK: - Development Only Logging
@@ -78,10 +84,9 @@ public enum AppLogger {
 
 // MARK: - Extensions for Common Use Cases
 
-extension AppLogger {
-    
+public extension AppLogger {
     /// Log data loading operations with standardized format
-    public static func logDataLoading(
+    static func logDataLoading(
         type: String,
         source: String,
         count: Int? = nil,
@@ -101,7 +106,7 @@ extension AppLogger {
     }
     
     /// Log cache operations with standardized format
-    public static func logCacheOperation(
+    static func logCacheOperation(
         operation: String,
         key: String,
         success: Bool,
@@ -118,13 +123,13 @@ extension AppLogger {
     }
     
     /// Log network requests with standardized format
-    public static func logNetworkRequest(
+    static func logNetworkRequest(
         url: URL,
-        method: String = "GET",
         success: Bool,
         statusCode: Int? = nil,
         duration: TimeInterval? = nil,
-        dataSize: Int? = nil
+        dataSize: Int? = nil,
+        method: String = "GET"
     ) {
         let statusEmoji = success ? "🌐" : "🚫"
         var message = "\(statusEmoji) \(method) \(url.absoluteString)"

@@ -7,13 +7,6 @@
 
 import Foundation
 
-//enum NetworkError: Error {
-//    case invalidURL
-//    case noData
-//    case decodingError
-//    case serverError(String)
-//}
-
 enum NetworkError: Error {
     case serverError(String)
     case parsingError(String)
