@@ -21,6 +21,7 @@ disabled_rules:
   - public_docs_required
   - conditional_returns_on_newline
   - switch_case_on_newline
+  - superfluous_disable_command
 
 # Some rules are only opt-in
 opt_in_rules:

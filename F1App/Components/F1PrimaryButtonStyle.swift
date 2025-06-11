@@ -97,17 +97,3 @@ public extension ButtonStyle where Self == F1SecondaryButtonStyle {
         F1SecondaryButtonStyle(isFullWidth: true)
     }
 }
-
-// MARK: - View Modifiers
-
-/// Conditional view modifier helper
-public extension View {
-    @ViewBuilder
-    func `if`<Content: View>(_ condition: Bool, transform: (Self) -> Content) -> some View {
-        if condition {
-            transform(self)
-        } else {
-            self
-        }
-    }
-} 
