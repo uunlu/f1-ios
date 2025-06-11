@@ -22,17 +22,23 @@
 /* States */
 "loading" = "Loading";
 "loading_content" = "Loading content";
+"loading_seasons" = "Loading seasons...";
 "last_updated" = "Last updated: %@";
 "pull_to_refresh" = "Pull to refresh";
 
 /* Empty States */
 "no_race_winners_found" = "No race winners found for this season";
 "no_seasons_found" = "No seasons found";
+"no_seasons_available" = "No seasons available";
 "no_data_available" = "No data available";
 
 /* Error States */
 "error_title" = "Something went wrong";
+"error_loading_data" = "Error Loading Data";
+"refresh_failed" = "Refresh Failed";
 "try_again" = "Try Again";
+"retry" = "Retry";
+"dismiss" = "Dismiss";
 "network_error" = "Network connection failed";
 "data_error" = "Unable to load data";
 "cache_error" = "Local data unavailable";

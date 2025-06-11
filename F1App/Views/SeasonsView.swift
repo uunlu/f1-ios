@@ -21,7 +21,7 @@ struct SeasonsView: View {
         NavigationView {
             VStack(spacing: 0) {
                 // Simple header
-                Text("F1 World Champions")
+                Text(NSLocalizedString("f1_world_champions", comment: "Main title for F1 World Champions"))
                     .font(.largeTitle)
                     .fontWeight(.bold)
                     .padding()
@@ -52,7 +52,7 @@ struct SeasonsView: View {
     // Optimized loading view
     private var loadingView: some View {
         VStack {
-            ProgressView("Loading seasons...")
+            ProgressView(NSLocalizedString("loading_seasons", comment: "Loading message for seasons"))
                 .progressViewStyle(CircularProgressViewStyle())
                 .scaleEffect(1.2)
             Spacer()
@@ -67,7 +67,7 @@ struct SeasonsView: View {
                 .font(.largeTitle)
                 .foregroundColor(.orange)
             
-            Text("Error Loading Data")
+            Text(NSLocalizedString("error_loading_data", comment: "Error loading data title"))
                 .font(.headline)
             
             Text(message)
@@ -75,7 +75,7 @@ struct SeasonsView: View {
                 .multilineTextAlignment(.center)
                 .foregroundColor(.secondary)
             
-            Button("Retry") {
+            Button(NSLocalizedString("retry", comment: "Retry button text")) {
                 viewModel.loadSeasons()
             }
             .buttonStyle(.borderedProminent)
@@ -91,7 +91,7 @@ struct SeasonsView: View {
                 .font(.largeTitle)
                 .foregroundColor(.secondary)
             
-            Text("No seasons available")
+            Text(NSLocalizedString("no_seasons_available", comment: "Message when no seasons are available"))
                 .font(.headline)
                 .foregroundColor(.secondary)
         }
@@ -128,7 +128,7 @@ struct SeasonsView: View {
                 .foregroundColor(.orange)
             
             VStack(alignment: .leading, spacing: 2) {
-                Text("Refresh Failed")
+                Text(NSLocalizedString("refresh_failed", comment: "Refresh failed message"))
                     .font(.caption)
                     .fontWeight(.semibold)
                 Text(message)
@@ -138,7 +138,7 @@ struct SeasonsView: View {
             
             Spacer()
             
-            Button("Dismiss") {
+            Button(NSLocalizedString("dismiss", comment: "Dismiss button text")) {
                 viewModel.error = nil
             }
             .font(.caption)

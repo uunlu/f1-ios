@@ -22,17 +22,23 @@
 /* States */
 "loading" = "Laden";
 "loading_content" = "Inhalt wird geladen";
+"loading_seasons" = "Saisons werden geladen...";
 "last_updated" = "Zuletzt aktualisiert: %@";
 "pull_to_refresh" = "Zum Aktualisieren ziehen";
 
 /* Empty States */
 "no_race_winners_found" = "Keine Rennsieger für diese Saison gefunden";
 "no_seasons_found" = "Keine Saisons gefunden";
+"no_seasons_available" = "Keine Saisons verfügbar";
 "no_data_available" = "Keine Daten verfügbar";
 
 /* Error States */
 "error_title" = "Etwas ist schiefgegangen";
+"error_loading_data" = "Fehler beim Laden der Daten";
+"refresh_failed" = "Aktualisierung fehlgeschlagen";
 "try_again" = "Erneut versuchen";
+"retry" = "Wiederholen";
+"dismiss" = "Schließen";
 "network_error" = "Netzwerkverbindung fehlgeschlagen";
 "data_error" = "Daten können nicht geladen werden";
 "cache_error" = "Lokale Daten nicht verfügbar";
