@@ -1,6 +1,6 @@
 //
 //  SeasonLoaderTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class SeasonLoaderTests: XCTestCase {
-    
     func testLocalSeasonLoaderSuccess() async {
         // Given
         let localStorage = InMemoryLocalStorage()
@@ -100,4 +99,4 @@ final class SeasonLoaderTests: XCTestCase {
             XCTFail("Should fallback to mock data on network error")
         }
     }
-} 
+}

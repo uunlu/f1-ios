@@ -1,6 +1,6 @@
 //
 //  CacheStrategyTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class CacheStrategyTests: XCTestCase {
-    
     func testTimeBasedCacheInvalidation() {
         // Given
         let strategy = TimeBased(timeInterval: 3600) // 1 hour
@@ -31,4 +30,4 @@ final class CacheStrategyTests: XCTestCase {
         XCTAssertTrue(invalidateStrategy.shouldInvalidateCache(for: "test", cachedDate: testDate))
         XCTAssertFalse(dontInvalidateStrategy.shouldInvalidateCache(for: "test", cachedDate: testDate))
     }
-} 
+}

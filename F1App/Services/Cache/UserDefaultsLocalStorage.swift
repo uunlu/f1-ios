@@ -64,4 +64,4 @@ public class UserDefaultsLocalStorage: LocalStorage {
             userDefaults.removeObject(forKey: key)
         }
     }
-} 
+}

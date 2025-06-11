@@ -1,6 +1,6 @@
 //
 //  SeasonModelTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class SeasonModelTests: XCTestCase {
-    
     func testSeasonCodableConformance() throws {
         // Given
         let season = Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes")
@@ -37,4 +36,4 @@ final class SeasonModelTests: XCTestCase {
         let set = Set([season1, season2, season3])
         XCTAssertEqual(set.count, 2) // season1 and season2 should be considered equal
     }
-} 
+}

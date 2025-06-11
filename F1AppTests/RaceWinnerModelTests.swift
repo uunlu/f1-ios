@@ -1,6 +1,6 @@
 //
 //  RaceWinnerModelTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class RaceWinnerModelTests: XCTestCase {
-    
     func testRaceWinnerCodableConformance() throws {
         // Given
         let driver = Driver(driverId: "hamilton", familyName: "Hamilton", givenName: "Lewis")
@@ -48,4 +47,4 @@ final class RaceWinnerModelTests: XCTestCase {
         XCTAssertEqual(decoded.familyName, driver.familyName)
         XCTAssertEqual(decoded.givenName, driver.givenName)
     }
-} 
+}

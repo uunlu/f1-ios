@@ -18,4 +18,4 @@ public struct CachedData<T: Codable>: Codable {
         self.timestamp = timestamp
         self.version = version
     }
-} 
+}

@@ -1,6 +1,6 @@
 //
 //  MapperTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class MapperTests: XCTestCase {
-    
     func testRaceWinnerMapperConvertsToDomain() {
         // Given
         let driver = Driver(driverId: "verstappen", familyName: "Verstappen", givenName: "Max")
@@ -35,4 +34,4 @@ final class MapperTests: XCTestCase {
         XCTAssertTrue(domainModel.isChampion)
         XCTAssertEqual(domainModel.raceCompletionTime, "1:32:15.456")
     }
-} 
+}

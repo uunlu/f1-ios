@@ -106,4 +106,4 @@ public extension CacheInvalidationStrategy {
     static func always() -> CacheInvalidationStrategy {
         Manual(shouldInvalidate: true)
     }
-} 
+}

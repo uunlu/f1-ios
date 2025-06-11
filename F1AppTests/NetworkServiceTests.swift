@@ -1,6 +1,6 @@
 //
 //  NetworkServiceTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class NetworkServiceTests: XCTestCase {
-    
     func testMockNetworkServiceSuccess() async {
         // Given
         let mockNetwork = MockNetworkService()
@@ -51,4 +50,4 @@ final class NetworkServiceTests: XCTestCase {
             XCTAssertEqual((error as NSError).code, 500)
         }
     }
-} 
+}

@@ -1,6 +1,6 @@
 //
 //  RaceWinnerViewModelTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class RaceWinnerViewModelTests: XCTestCase {
-    
     @MainActor
     func testRaceWinnerViewModelInitialization() {
         // Given
@@ -57,4 +56,4 @@ final class RaceWinnerViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isLoading)
         XCTAssertNil(viewModel.error)
     }
-} 
+}

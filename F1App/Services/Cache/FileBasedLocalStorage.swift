@@ -90,4 +90,4 @@ public class FileBasedLocalStorage: LocalStorage {
             throw StorageError.deleteFailed
         }
     }
-} 
+}

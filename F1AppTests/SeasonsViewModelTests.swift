@@ -1,6 +1,6 @@
 //
 //  SeasonsViewModelTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class SeasonsViewModelTests: XCTestCase {
-    
     @MainActor
     func testSeasonsViewModelInitialization() {
         // Given
@@ -69,4 +68,4 @@ final class SeasonsViewModelTests: XCTestCase {
         XCTAssertFalse(viewModel.isLoading)
         XCTAssertNotNil(viewModel.error)
     }
-} 
+}

@@ -1,6 +1,6 @@
 //
 //  LocalStorageTests.swift
-//  F1AppTests
+//  F1App
 //
 //  Created by Ugur Unlu on 31/05/2025.
 //
@@ -9,7 +9,6 @@
 import XCTest
 
 final class LocalStorageTests: XCTestCase {
-    
     func testInMemoryLocalStorageSaveAndLoad() throws {
         // Given
         let storage = InMemoryLocalStorage()
@@ -38,4 +37,4 @@ final class LocalStorageTests: XCTestCase {
         // Then
         XCTAssertNil(loaded)
     }
-} 
+}
