@@ -15,7 +15,7 @@
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
                 <true/>
                 <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+                <string>TLSv1.2</string>
                 <key>NSIncludesSubdomains</key>
                 <true/>
             </dict>
@@ -24,21 +24,21 @@
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
                 <true/>
                 <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+                <string>TLSv1.2</string>
             </dict>
             <key>192.168.2.9</key>
             <dict>
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
                 <true/>
                 <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+                <string>TLSv1.2</string>
             </dict>
             <key>10.21.32.76</key>
             <dict>
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
                 <true/>
                 <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+                <string>TLSv1.2</string>
             </dict>
             <key>ngrok-free.app</key>
             <dict>
@@ -47,7 +47,7 @@
                 <key>NSExceptionAllowsInsecureHTTPLoads</key>
                 <true/>
                 <key>NSExceptionMinimumTLSVersion</key>
-                <string>TLSv1.0</string>
+                <string>TLSv1.2</string>
             </dict>
         </dict>
     </dict>
