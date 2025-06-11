@@ -13,7 +13,7 @@ final class LocalStorageTests: XCTestCase {
         // Given
         let storage = InMemoryLocalStorage()
         let testSeasons = [
-            Season(driver: "Test Driver", season: "2023", constructor: "Test Team")
+            Season(driver: "Test Driver", season: "2023", constructor: "Test Team", completed: true)
         ]
         
         // When

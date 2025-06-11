@@ -11,7 +11,7 @@ import XCTest
 final class SeasonModelTests: XCTestCase {
     func testSeasonCodableConformance() throws {
         // Given
-        let season = Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes")
+        let season = Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes", completed: true)
         
         // When
         let encoded = try JSONEncoder().encode(season)
@@ -25,9 +25,9 @@ final class SeasonModelTests: XCTestCase {
     
     func testSeasonHashable() {
         // Given
-        let season1 = Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull")
-        let season2 = Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull")
-        let season3 = Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes")
+        let season1 = Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull", completed: true)
+        let season2 = Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull", completed: true)
+        let season3 = Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes", completed: true)
         
         // When & Then
         XCTAssertEqual(season1, season2)

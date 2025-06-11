@@ -12,7 +12,7 @@ final class SeasonLoaderTests: XCTestCase {
     func testLocalSeasonLoaderSuccess() async {
         // Given
         let localStorage = InMemoryLocalStorage()
-        let testSeasons = [Season(driver: "Test Driver", season: "2023", constructor: "Test Team")]
+        let testSeasons = [Season(driver: "Test Driver", season: "2023", constructor: "Test Team", completed: true)]
         // swiftlint:disable:next force_try
         try! localStorage.save(testSeasons, forKey: "seasons")
         
@@ -55,7 +55,7 @@ final class SeasonLoaderTests: XCTestCase {
     func testRemoteSeasonLoaderSuccess() async {
         // Given
         let mockNetwork = MockNetworkService()
-        let testSeasons = [Season(driver: "Remote Driver", season: "2023", constructor: "Remote Team")]
+        let testSeasons = [Season(driver: "Remote Driver", season: "2023", constructor: "Remote Team", completed: true)]
         // swiftlint:disable:next force_try
         let jsonData = try! JSONEncoder().encode(testSeasons)
         mockNetwork.setSuccessResponse(jsonData)

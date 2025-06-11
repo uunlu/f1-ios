@@ -61,9 +61,15 @@ public struct F1SeasonListItem: View {
                             .font(.system(size: 10))
                             .foregroundColor(constructorColor)
                         
-                        Text(LocalizedStrings.worldChampion)
-                            .font(.system(size: 11, weight: .medium))
-                            .foregroundColor(constructorColor)
+                        if season.completed {
+                            Text(LocalizedStrings.worldChampion)
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(constructorColor)
+                        } else  {
+                            Text(LocalizedStrings.ongoingChampionship)
+                                .font(.system(size: 11, weight: .medium))
+                                .foregroundColor(constructorColor)
+                        }
                     }
                 }
                 

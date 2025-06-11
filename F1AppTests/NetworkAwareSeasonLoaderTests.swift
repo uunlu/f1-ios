@@ -296,7 +296,8 @@ extension Season {
         Season(
             driver: "Max Verstappen",
             season: "2023",
-            constructor: "Red Bull Racing Honda RBPT"
+            constructor: "Red Bull Racing Honda RBPT",
+            completed: true
         )
     }
 } 

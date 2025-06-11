@@ -28,9 +28,9 @@ import SwiftUI
 #Preview("With Mock Data") {
     let mockLoader = MockSeasonLoader()
     mockLoader.setSuccessResponse([
-        Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull Racing"),
-        Season(driver: "Max Verstappen", season: "2022", constructor: "Red Bull Racing"),
-        Season(driver: "Max Verstappen", season: "2021", constructor: "Red Bull Racing")
+        Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull Racing", completed: true),
+        Season(driver: "Max Verstappen", season: "2022", constructor: "Red Bull Racing", completed: true),
+        Season(driver: "Max Verstappen", season: "2021", constructor: "Red Bull Racing", completed: true)
     ])
     
     return SeasonsView(
