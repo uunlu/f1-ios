@@ -237,7 +237,7 @@ final class SeasonsViewModelOfflineTests: XCTestCase {
     
     func testNetworkAwareErrorHandling() async {
         // Given
-        mockNetworkAwareLoader.mockResult = .failure(NetworkAwareError.noInternetAndNoCache)
+        mockNetworkAwareLoader.mockResult = .failure(NetworkAwareError.noInternetAndNoCache(""))
         
         // Set network state to offline without cache first
         mockNetworkAwareLoader.publishNetworkState(.offlineWithoutCache)

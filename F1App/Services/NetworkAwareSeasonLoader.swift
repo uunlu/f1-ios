@@ -158,7 +158,7 @@ class NetworkAwareSeasonLoader: NetworkAwareSeasonLoading {
 }
 
 // MARK: - Network-Aware Errors
-enum NetworkAwareError: Error, LocalizedError {
+enum NetworkAwareError: Error, LocalizedError, Equatable {
     case noInternetConnection
     case noInternetAndNoCache(String)
     
