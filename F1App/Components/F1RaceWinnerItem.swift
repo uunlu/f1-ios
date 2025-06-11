@@ -39,10 +39,10 @@ public struct F1RaceWinnerItem: View {
                     // Driver info
                     VStack(alignment: .leading, spacing: F1Layout.spacing4) {
                         HStack {
-                            Text("Round \(race.round)")
+                            Text(LocalizedStrings.roundLabel(race.round))
                                 .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
                             Spacer()
-                            Text("Time: \(race.raceCompletionTime)")
+                            Text(LocalizedStrings.raceTime(race.raceCompletionTime))
                                 .f1TextStyle(F1Typography.caption1, color: F1Colors.textTertiary)
                                 .bold()
                         }
@@ -71,7 +71,7 @@ public struct F1RaceWinnerItem: View {
                         
                         // Details grid
                         HStack(spacing: F1Layout.spacing24) {
-                            F1LabeledContent(label: "Constructor") {
+                            F1LabeledContent(label: LocalizedStrings.constructor) {
                                 HStack(spacing: F1Layout.spacing8) {
                                     F1TeamColorBar(color: constructorColor, width: 3, height: 20)
                                     
@@ -83,7 +83,7 @@ public struct F1RaceWinnerItem: View {
                             
                             Spacer()
                             
-                            F1LabeledContent(label: "Season") {
+                            F1LabeledContent(label: LocalizedStrings.season) {
                                 Text(race.season)
                                     .f1TextStyle(F1Typography.callout, color: F1Colors.textPrimary)
                                     .fontWeight(.medium)
@@ -118,7 +118,7 @@ public struct F1RaceWinnerItem: View {
                     }
                 })
                 .buttonStyle(PlainButtonStyle())
-                .accessibilityLabel(showDetails ? "Hide details" : "Show details")
+                .accessibilityLabel(showDetails ? LocalizedStrings.hideDetails : LocalizedStrings.showDetails)
                 .accessibilityAddTraits(.isButton)
             }
         }

@@ -34,7 +34,7 @@ struct RaceWinnerView: View {
                 }
             }
         }
-        .navigationTitle(String(format: NSLocalizedString("race_winners_navigation_title", comment: "Navigation title for race winners with season"), season.season))
+        .navigationTitle(LocalizedStrings.raceWinnersNavigationTitle(season.season))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
             withAnimation(F1Animations.standardSpring.delay(F1Animations.standardDelay)) {
@@ -77,7 +77,7 @@ struct RaceWinnerView: View {
                             .foregroundColor(F1Colors.f1White)
                         
                         if viewModel.hasChampion {
-                            Text(NSLocalizedString("world_champion", comment: "World Champion badge text"))
+                            Text(LocalizedStrings.worldChampion)
                                 .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
                                 .fontWeight(.bold)
                                 .lineLimit(1)
@@ -118,7 +118,7 @@ struct RaceWinnerView: View {
             }
             .frame(height: 80) // Fixed compact height
             
-            F1Components.SectionHeader(title: NSLocalizedString("race_winners", comment: "Section header for race winners list"))
+            F1Components.SectionHeader(title: LocalizedStrings.raceWinners)
         }
         .padding(.horizontal, F1Layout.spacing16)
         .padding(.top, F1Layout.spacing8)

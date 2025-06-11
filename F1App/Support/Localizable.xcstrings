@@ -1,0 +1,816 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "%@" : {
+
+    },
+    "%@ badge" : {
+
+    },
+    "%@ icon" : {
+
+    },
+    "back_to_seasons" : {
+      "comment" : "Back button text to seasons",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisons"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Seasons"
+          }
+        }
+      }
+    },
+    "cache_error" : {
+      "comment" : "Cache error message"
+    },
+    "champion" : {
+      "comment" : "Champion badge text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CHAMPION"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "CHAMPION"
+          }
+        }
+      }
+    },
+    "champion_badge" : {
+      "comment" : "Champion badge accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Champion-Abzeichen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Champion badge"
+          }
+        }
+      }
+    },
+    "championship" : {
+      "comment" : "Championship label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Meisterschaft"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Championship"
+          }
+        }
+      }
+    },
+    "collapse_details" : {
+      "comment" : "Collapse details accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Einklappen, um Details auszublenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Collapse to hide details"
+          }
+        }
+      }
+    },
+    "constructor" : {
+      "comment" : "Constructor label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Konstrukteur"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Constructor"
+          }
+        }
+      }
+    },
+    "data_error" : {
+      "comment" : "Data loading error"
+    },
+    "dismiss" : {
+      "comment" : "Dismiss button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Schließen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Dismiss"
+          }
+        }
+      }
+    },
+    "driver" : {
+      "comment" : "Driver label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrer"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Driver"
+          }
+        }
+      }
+    },
+    "drivers_championship_winner" : {
+      "comment" : "Drivers Championship Winner",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fahrer-Weltmeister"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Drivers' Championship Winner"
+          }
+        }
+      }
+    },
+    "error_loading_data" : {
+      "comment" : "Error loading data title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fehler beim Laden der Daten"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Error Loading Data"
+          }
+        }
+      }
+    },
+    "error_title" : {
+      "comment" : "Error view title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Etwas ist schiefgegangen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Something went wrong"
+          }
+        }
+      }
+    },
+    "expand_details" : {
+      "comment" : "Expand details accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erweitern, um weitere Details anzuzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Expand to view more details"
+          }
+        }
+      }
+    },
+    "f1_world_champions" : {
+      "comment" : "F1 World Champions header",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F1 Weltmeister"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F1 World Champions"
+          }
+        }
+      }
+    },
+    "formula_1_history" : {
+      "comment" : "Formula 1 history subtitle",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formel 1 Meisterschaftsgeschichte"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Formula 1 Championship History"
+          }
+        }
+      }
+    },
+    "formula_1_world_championship" : {
+      "comment" : "Formula 1 World Championship",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Formel 1 Weltmeisterschaft"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Formula 1 World Championship"
+          }
+        }
+      }
+    },
+    "hide_details" : {
+      "comment" : "Hide details action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details ausblenden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Hide details"
+          }
+        }
+      }
+    },
+    "last_updated" : {
+      "comment" : "Last updated timestamp",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zuletzt aktualisiert: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Last updated: %@"
+          }
+        }
+      }
+    },
+    "loading" : {
+      "comment" : "Loading text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Laden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading"
+          }
+        }
+      }
+    },
+    "loading_content" : {
+      "comment" : "Loading content accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Inhalt wird geladen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading content"
+          }
+        }
+      }
+    },
+    "loading_seasons" : {
+      "comment" : "Loading message for seasons",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saisons werden geladen..."
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Loading seasons..."
+          }
+        }
+      }
+    },
+    "network_error" : {
+      "comment" : "Network error message"
+    },
+    "no_data_available" : {
+      "comment" : "No data available",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Daten verfügbar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No data available"
+          }
+        }
+      }
+    },
+    "no_race_winners_found" : {
+      "comment" : "No race winners empty state",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Rennsieger für diese Saison gefunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No race winners found for this season"
+          }
+        }
+      }
+    },
+    "no_seasons_available" : {
+      "comment" : "Message when no seasons are available",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Saisons verfügbar"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No seasons available"
+          }
+        }
+      }
+    },
+    "no_seasons_found" : {
+      "comment" : "No seasons empty state",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Keine Saisons gefunden"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "No seasons found"
+          }
+        }
+      }
+    },
+    "pull_to_refresh" : {
+      "comment" : "Pull to refresh instruction",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zum Aktualisieren ziehen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Pull to refresh"
+          }
+        }
+      }
+    },
+    "race_time" : {
+      "comment" : "Race completion time label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Zeit: %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Time: %@"
+          }
+        }
+      }
+    },
+    "race_winners" : {
+      "comment" : "Section header for race winners list",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rennsieger"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Race Winners"
+          }
+        }
+      }
+    },
+    "race_winners_navigation_title" : {
+      "comment" : "Navigation title for race winners with season",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rennsieger - %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Race Winners - %@"
+          }
+        }
+      }
+    },
+    "race_winners_title" : {
+      "comment" : "Race winners view title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Rennsieger"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Race Winners"
+          }
+        }
+      }
+    },
+    "refresh_failed" : {
+      "comment" : "Refresh failed message",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Aktualisierung fehlgeschlagen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Refresh Failed"
+          }
+        }
+      }
+    },
+    "retry" : {
+      "comment" : "Retry button text",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Wiederholen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Retry"
+          }
+        }
+      }
+    },
+    "round" : {
+      "comment" : "Round label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runde"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Round"
+          }
+        }
+      }
+    },
+    "round_label" : {
+      "comment" : "Round label with number",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Runde %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Round %@"
+          }
+        }
+      }
+    },
+    "season" : {
+      "comment" : "Season label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saison"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Season"
+          }
+        }
+      }
+    },
+    "season_accessibility_label" : {
+      "comment" : "Season item accessibility label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saison %@, %@, %@"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Season %@, %@, %@"
+          }
+        }
+      }
+    },
+    "season_button_hint" : {
+      "comment" : "Season button accessibility hint",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippen, um Rennsieger für diese Saison anzuzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap to view race winners for this season"
+          }
+        }
+      }
+    },
+    "season_details_title" : {
+      "comment" : "Season details view title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Saison"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Season"
+          }
+        }
+      }
+    },
+    "seasons_title" : {
+      "comment" : "Main seasons view title",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "F1 Weltmeister"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "F1 World Champions"
+          }
+        }
+      }
+    },
+    "show_details" : {
+      "comment" : "Show details action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Details anzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Show details"
+          }
+        }
+      }
+    },
+    "tap_to_retry" : {
+      "comment" : "Tap to retry action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippen, um es erneut zu versuchen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap to retry the operation"
+          }
+        }
+      }
+    },
+    "tap_to_view_winners" : {
+      "comment" : "Tap to view winners action",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tippen, um Rennsieger anzuzeigen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Tap to view race winners"
+          }
+        }
+      }
+    },
+    "team_color_indicator" : {
+      "comment" : "Team color accessibility",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Team-Farb-Indikator"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Team color indicator"
+          }
+        }
+      }
+    },
+    "try_again" : {
+      "comment" : "Try again button",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Erneut versuchen"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Try Again"
+          }
+        }
+      }
+    },
+    "world_champion" : {
+      "comment" : "World Champion label",
+      "extractionState" : "manual",
+      "localizations" : {
+        "de" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Weltmeister"
+          }
+        },
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "World Champion"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}
