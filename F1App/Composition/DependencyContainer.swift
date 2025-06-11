@@ -8,6 +8,7 @@
 import Foundation
 
 // MARK: - Service Protocols
+
 protocol DependencyProvider {
     var networkService: NetworkService { get }
     var localStorage: LocalStorage { get }
@@ -16,14 +17,16 @@ protocol DependencyProvider {
 }
 
 // MARK: - Container Implementation
+
 class DependencyContainer: DependencyProvider {
-    // MARK: - Services
+    
+    // MARK: Properties
     private(set) var networkService: NetworkService
     private(set) var localStorage: LocalStorage
     private(set) var seasonLoader: SeasonLoader
     private(set) var raceWinnerLoader: RaceWinnerLoader
     
-    // MARK: - Initialization
+    // MARK: Initialization
     init(
         networkService: NetworkService? = nil,
         localStorage: LocalStorage? = nil,
@@ -75,7 +78,7 @@ class DependencyContainer: DependencyProvider {
         }
     }
     
-    // MARK: - Factory Methods for App Components
+    // MARK: Factory Methods - UI Components
     
     // These methods can be on the main actor since they create UI components
     @MainActor
@@ -92,11 +95,12 @@ class DependencyContainer: DependencyProvider {
     
     @MainActor
     func makeRaceWinnerViewModel(for seasonYear: String) -> RaceWinnerViewModel {
-        AppLogger.logViewModel("Creating RaceWinnerViewModel for season \(seasonYear)")
+        AppLogger.logViewModel("Creating RaceWinnerViewModel for season $seasonYear)")
         return RaceWinnerViewModel(raceWinnerLoader: raceWinnerLoader, for: seasonYear)
     }
     
-    // MARK: - Factory for creating container instances
+    // MARK: Factory Methods - Container Creation
+    
     static func createDefault() -> DependencyContainer {
         return DependencyContainer()
     }
@@ -111,6 +115,7 @@ class DependencyContainer: DependencyProvider {
         )
     }
 }
+
 
 // MARK: - Mock implementations for testing
 
