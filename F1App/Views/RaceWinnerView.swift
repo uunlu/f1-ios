@@ -22,7 +22,7 @@ struct RaceWinnerView: View {
             F1Colors.backgroundGradient
                 .ignoresSafeArea()
             
-            VStack(spacing: 0) {
+            VStack(spacing: F1Layout.spacing8) {
                 seasonHeader
                 
                 if viewModel.isLoading {
@@ -34,10 +34,10 @@ struct RaceWinnerView: View {
                 }
             }
         }
-        .navigationTitle("Race Winners - \(season.season)")
+        .navigationTitle(LocalizedStrings.raceWinnersNavigationTitle(season.season))
         .navigationBarTitleDisplayMode(.inline)
         .onAppear {
-            withAnimation(F1Animations.standardSpring.delay(0.2)) {
+            withAnimation(F1Animations.standardSpring.delay(F1Animations.standardDelay)) {
                 isAppeared = true
             }
             
@@ -51,92 +51,78 @@ struct RaceWinnerView: View {
         let teamColor = F1Colors.teamColor(for: season.constructor)
         let teamGradient = F1Colors.teamGradient(for: season.constructor)
         
-        return VStack(alignment: .leading, spacing: F1Layout.spacing20) {
+        return VStack(alignment: .leading, spacing: F1Layout.spacing12) {
             ZStack {
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusMedium)
                     .fill(F1Colors.cardBackground)
-                    .f1ShadowHeavy()
+                    .f1ShadowLight()
                 
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusMedium)
                     .fill(
                         LinearGradient(
                             gradient: Gradient(colors: [
-                                teamColor.opacity(0.15),
-                                teamColor.opacity(0.05)
+                                teamColor.opacity(0.1),
+                                teamColor.opacity(0.03)
                             ]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
                         )
                     )
                 
-                VStack(alignment: .leading, spacing: F1Layout.spacing16) {
-                    // Champion badge
-                    HStack {
-                        HStack(spacing: F1Layout.spacing6) {
-                            Image(systemName: "crown.fill")
-                                .font(.system(size: F1Layout.iconSmall))
-                                .foregroundColor(F1Colors.f1White)
-                            
-                            if viewModel.hasChampion {
-                                Text("World Champion")
-                                    .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
-                                    .fontWeight(.bold)
-                                    .lineLimit(1)
-                            }
-                        }
-                        .padding(.horizontal, F1Layout.spacing12)
-                        .padding(.vertical, F1Layout.spacing6)
-                        .background(
-                            RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
-                                .fill(teamGradient)
-                        )
-                        .f1ShadowLight()
+                HStack(spacing: F1Layout.spacing12) {
+                    // Champion badge - more compact
+                    HStack(spacing: F1Layout.spacing4) {
+                        Image(systemName: "crown.fill")
+                            .font(F1Typography.caption1)
+                            .foregroundColor(F1Colors.f1White)
                         
-                        Spacer()
+                        if viewModel.hasChampion {
+                            Text(LocalizedStrings.worldChampion)
+                                .f1TextStyle(F1Typography.caption1, color: F1Colors.f1White)
+                                .fontWeight(.bold)
+                                .lineLimit(1)
+                        }
                     }
+                    .padding(.horizontal, F1Layout.spacing8)
+                    .padding(.vertical, F1Layout.spacing4)
+                    .background(
+                        RoundedRectangle(cornerRadius: F1Layout.cornerRadiusSmall)
+                            .fill(teamGradient)
+                    )
                     
-                    // Driver info
-                    VStack(alignment: .leading, spacing: F1Layout.spacing8) {
+                    Spacer()
+                    
+                    // Driver and constructor info - more compact layout
+                    VStack(alignment: .trailing, spacing: F1Layout.spacing2) {
                         Text(season.driver)
-                            .f1TextStyle(F1Typography.title2, color: F1Colors.textPrimary)
+                            .f1TextStyle(F1Typography.headline, color: F1Colors.textPrimary)
                             .fontWeight(.bold)
                         
-                        HStack(spacing: F1Layout.spacing8) {
-                            RoundedRectangle(cornerRadius: F1Layout.spacing2)
+                        HStack(spacing: F1Layout.spacing4) {
+                            RoundedRectangle(cornerRadius: 1)
                                 .fill(teamColor)
-                                .frame(width: 4, height: 24)
+                                .frame(width: 3, height: 16)
                             
                             Text(season.constructor)
-                                .f1TextStyle(F1Typography.headline, color: F1Colors.textPrimary)
+                                .f1TextStyle(F1Typography.subheadline, color: F1Colors.textSecondary)
                                 .fontWeight(.medium)
                         }
                     }
                 }
-                .f1Padding(F1Layout.cardInsets)
+                .padding(.horizontal, F1Layout.spacing16)
+                .padding(.vertical, F1Layout.spacing12)
                 
-                // Premium border
-                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusLarge)
-                    .stroke(
-                        LinearGradient(
-                            gradient: Gradient(colors: [
-                                teamColor.opacity(0.4),
-                                teamColor.opacity(0.1)
-                            ]),
-                            startPoint: .topLeading,
-                            endPoint: .bottomTrailing
-                        ),
-                        lineWidth: F1Layout.borderWidth
-                    )
+                // Subtle border
+                RoundedRectangle(cornerRadius: F1Layout.cornerRadiusMedium)
+                    .stroke(teamColor.opacity(0.2), lineWidth: 1)
             }
+            .frame(height: 80) // Fixed compact height
             
-            F1Components.SectionHeader(title: "Race Winners")
+            F1Components.SectionHeader(title: LocalizedStrings.raceWinners)
         }
-        .f1Padding(EdgeInsets(
-            top: F1Layout.spacing16,
-            leading: F1Layout.spacing20,
-            bottom: F1Layout.spacing8,
-            trailing: F1Layout.spacing20
-        ))
+        .padding(.horizontal, F1Layout.spacing16)
+        .padding(.top, F1Layout.spacing8)
+        .padding(.bottom, F1Layout.spacing4)
         .fadeScaleTransition(isActive: isAppeared)
     }
     
@@ -169,13 +155,17 @@ struct RaceWinnerView: View {
     }
     
     private var raceWinnersList: some View {
-        ScrollView {
+        let items = Array(viewModel.raceWinners.enumerated())
+        return ScrollView {
             LazyVStack(spacing: F1Layout.spacing16) {
-                ForEach(Array(viewModel.raceWinners.enumerated()), id: \.offset) { index, race in
+                ForEach(items, id: \.offset) { index, race in
                     F1Components.RaceWinnerItem(race: race)
                         .padding(.horizontal, F1Layout.spacing20)
                         .fadeScaleTransition(isActive: isAppeared)
-                        .animation(F1Animations.staggered(index: index, baseDelay: 0.05), value: isAppeared)
+                        .animation(
+                            F1Animations.staggered(index: index, baseDelay: F1Animations.staggerDelay),
+                            value: isAppeared
+                        )
                 }
             }
             .padding(.vertical, F1Layout.spacing8)

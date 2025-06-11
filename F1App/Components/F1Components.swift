@@ -44,4 +44,7 @@ public enum F1Components {
     
     /// Error view component
     public typealias ErrorView = F1ErrorView
+    
+    /// Offline banner component
+    public typealias OfflineBanner = F1OfflineBanner
 }

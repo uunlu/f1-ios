@@ -15,6 +15,11 @@ public enum F1Animations {
     public static let mediumDuration: Double = 0.4
     public static let slowDuration: Double = 0.6
     
+    // Animation delay values
+    public static let standardDelay: Double = 0.2
+    public static let staggerDelay: Double = 0.05
+    public static let quickDelay: Double = 0.1
+    
     // Standard animations
     public static let quick = Animation.easeInOut(duration: quickDuration)
     public static let standard = Animation.easeInOut(duration: standardDuration)
@@ -31,7 +36,7 @@ public enum F1Animations {
     public static let customEaseOut = Animation.timingCurve(0, 0, 0.58, 1.0, duration: standardDuration)
     
     // Staggered animations
-    public static func staggered(index: Int, baseDelay: Double = 0.05) -> Animation {
+    public static func staggered(index: Int, baseDelay: Double = staggerDelay) -> Animation {
         Animation.spring(response: 0.4, dampingFraction: 0.75)
             .delay(Double(index) * baseDelay)
     }

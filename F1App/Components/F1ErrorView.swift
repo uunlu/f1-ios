@@ -27,7 +27,7 @@ public struct F1ErrorView: View {
                 )
                 
                 VStack(spacing: F1Layout.spacing8) {
-                    Text("Something went wrong")
+                    Text(LocalizedStrings.errorTitle)
                         .f1TextStyle(F1Typography.title3, color: F1Colors.textPrimary)
                         .fontWeight(.bold)
                     
@@ -38,7 +38,7 @@ public struct F1ErrorView: View {
             }
             
             Button(action: retryAction) {
-                Text("Try Again")
+                Text(LocalizedStrings.tryAgain)
                     .f1TextStyle(F1Typography.body, color: F1Colors.f1White)
                     .fontWeight(.semibold)
                     .frame(maxWidth: .infinity)

@@ -24,18 +24,23 @@ class DependencyContainer: DependencyProvider {
     private(set) var localStorage: LocalStorage
     private(set) var seasonLoader: SeasonLoader
     private(set) var raceWinnerLoader: RaceWinnerLoader
+    private(set) var networkMonitor: NetworkMonitor
     
     // MARK: Initialization
     init(
         networkService: NetworkService? = nil,
         localStorage: LocalStorage? = nil,
         seasonLoader: SeasonLoader? = nil,
-        raceWinnerLoader: RaceWinnerLoader? = nil
+        raceWinnerLoader: RaceWinnerLoader? = nil,
+        networkMonitor: NetworkMonitor = NetworkMonitor.shared
     ) {
         AppLogger.logViewModel("Initializing DependencyContainer")
         
         // Initialize or use provided network service
         self.networkService = networkService ?? URLSessionNetworkService()
+        
+        // Initialize or use provided network monitor
+        self.networkMonitor = networkMonitor
         
         // Initialize or use provided local storage
         if let storage = localStorage {
@@ -56,11 +61,11 @@ class DependencyContainer: DependencyProvider {
         } else {
             let localLoader = LocalSeasonLoader(localStorage: self.localStorage)
             let remoteLoader = RemoteSeasonLoader(networkService: self.networkService)
-            self.seasonLoader = LocalWithRemoteSeasonLoader(
+            self.seasonLoader = NetworkAwareSeasonLoader(
                 localLoader: localLoader,
                 remoteLoader: remoteLoader
             )
-            AppLogger.logViewModel("Initialized SeasonLoader with Local+Remote decorator pattern")
+            AppLogger.logViewModel("Initialized NetworkAwareSeasonLoader with network monitoring")
         }
         
         // Initialize or use provided race winner loader

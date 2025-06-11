@@ -61,7 +61,7 @@ public struct F1SeasonListItem: View {
                             .font(.system(size: 10))
                             .foregroundColor(constructorColor)
                         
-                        Text("World Champion")
+                        Text(LocalizedStrings.worldChampion)
                             .font(.system(size: 11, weight: .medium))
                             .foregroundColor(constructorColor)
                     }
@@ -96,7 +96,7 @@ public struct F1SeasonListItem: View {
         }
         .accessibilityElement()
         .accessibilityLabel("Season \(season.season), \(season.driver), \(season.constructor)")
-        .accessibilityHint("Tap to view race winners")
+        .accessibilityHint(LocalizedStrings.tapToViewWinners)
         .accessibilityAddTraits(.isButton)
     }
 }

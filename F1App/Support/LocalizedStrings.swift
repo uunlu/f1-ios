@@ -7,87 +7,85 @@
 
 import Foundation
 
-/// Type-safe localization helper for F1App
 public enum LocalizedStrings {
-    // MARK: - Navigation
-    public static let seasonsTitle = NSLocalizedString(
-        "seasons_title", 
-        comment: "Main seasons view title"
-    )
-    public static let seasonDetailsTitle = NSLocalizedString(
-        "season_details_title", 
-        comment: "Season details view title"
-    )
-    public static let raceWinnersTitle = NSLocalizedString("race_winners_title", comment: "Race winners view title")
-    public static let backToSeasons = NSLocalizedString("back_to_seasons", comment: "Back button text to seasons")
+    // MARK: - Navigation & Titles
+    public static let seasonsTitle = "Seasons"
+    public static let seasonDetailsTitle = "Season Details"
+    public static let raceWinnersTitle = "Race Winners"
+    public static let backToSeasons = "Back to Seasons"
     
-    // MARK: - Headers and Labels
-    public static let f1WorldChampions = NSLocalizedString("f1_world_champions", comment: "F1 World Champions header")
-    public static let formula1History = NSLocalizedString("formula_1_history", comment: "Formula 1 history subtitle")
-    public static let worldChampion = NSLocalizedString("world_champion", comment: "World Champion label")
-    public static let championship = NSLocalizedString("championship", comment: "Championship label")
-    public static let formula1WorldChampionship = NSLocalizedString(
-        "formula_1_world_championship", 
-        comment: "Formula 1 World Championship"
-    )
-    public static let driversChampionshipWinner = NSLocalizedString(
-        "drivers_championship_winner", 
-        comment: "Drivers Championship Winner"
-    )
+    public static func raceWinnersNavigationTitle(_ season: String) -> String {
+        "Race Winners - \(season)"
+    }
     
-    // MARK: - Content Labels
-    public static let season = NSLocalizedString("season", comment: "Season label")
-    public static let driver = NSLocalizedString("driver", comment: "Driver label")
-    public static let constructor = NSLocalizedString("constructor", comment: "Constructor label")
-    public static let round = NSLocalizedString("round", comment: "Round label")
-    public static let champion = NSLocalizedString("champion", comment: "Champion badge text")
+    // MARK: - Main Content
+    public static let f1WorldChampions = "F1 World Champions"
+    public static let formula1History = "Formula 1 History"
+    public static let worldChampion = "World Champion"
+    public static let championship = "Championship"
+    public static let formula1WorldChampionship = "Formula 1 World Championship"
+    public static let driversChampionshipWinner = "Drivers Championship Winner"
+    public static let raceWinners = "Race Winners"
     
-    // MARK: - States
-    public static let loading = NSLocalizedString("loading", comment: "Loading text")
-    public static let loadingContent = NSLocalizedString("loading_content", comment: "Loading content accessibility")
-    public static let pullToRefresh = NSLocalizedString("pull_to_refresh", comment: "Pull to refresh instruction")
+    // MARK: - Data Labels
+    public static let season = "Season"
+    public static let driver = "Driver"
+    public static let constructor = "Constructor"
+    public static let round = "Round"
+    public static let champion = "Champion"
+    
+    // MARK: - Loading States
+    public static let loading = "Loading"
+    public static let loadingContent = "Loading content"
+    public static let loadingSeasons = "Loading seasons..."
+    public static let pullToRefresh = "Pull to refresh"
     
     public static func lastUpdated(_ date: String) -> String {
-        String(format: NSLocalizedString("last_updated", comment: "Last updated timestamp"), date)
+        "Last updated: \(date)"
     }
     
     // MARK: - Empty States
-    public static let noRaceWinnersFound = NSLocalizedString(
-        "no_race_winners_found", 
-        comment: "No race winners empty state"
-    )
-    public static let noSeasonsFound = NSLocalizedString("no_seasons_found", comment: "No seasons empty state")
-    public static let noDataAvailable = NSLocalizedString("no_data_available", comment: "No data available")
+    public static let noRaceWinnersFound = "No race winners found"
+    public static let noSeasonsFound = "No seasons found"
+    public static let noSeasonsAvailable = "No seasons available"
+    public static let noDataAvailable = "No data available"
     
     // MARK: - Error States
-    public static let errorTitle = NSLocalizedString("error_title", comment: "Error view title")
-    public static let tryAgain = NSLocalizedString("try_again", comment: "Try again button")
-    public static let networkError = NSLocalizedString("network_error", comment: "Network error message")
-    public static let dataError = NSLocalizedString("data_error", comment: "Data loading error")
-    public static let cacheError = NSLocalizedString("cache_error", comment: "Cache error message")
+    public static let errorTitle = "Error"
+    public static let errorLoadingData = "Error loading data"
+    public static let refreshFailed = "Refresh failed"
+    public static let tryAgain = "Try again"
+    public static let retry = "Retry"
+    public static let dismiss = "Dismiss"
+    public static let networkError = "Network connection error"
+    public static let dataError = "Data loading error"
+    public static let cacheError = "Cache loading error"
+    public static let cacheInvalidationRequired = "Cache invalidation required"
     
     // MARK: - Actions
-    public static let tapToViewWinners = NSLocalizedString(
-        "tap_to_view_winners", 
-        comment: "Tap to view winners action"
-    )
-    public static let tapToRetry = NSLocalizedString("tap_to_retry", comment: "Tap to retry action")
-    public static let showDetails = NSLocalizedString("show_details", comment: "Show details action")
-    public static let hideDetails = NSLocalizedString("hide_details", comment: "Hide details action")
+    public static let tapToViewWinners = "Tap to view race winners"
+    public static let tapToRetry = "Tap to retry"
+    public static let showDetails = "Show details"
+    public static let hideDetails = "Hide details"
     
     // MARK: - Accessibility
-    public static let seasonButtonHint = NSLocalizedString(
-        "season_button_hint", 
-        comment: "Season button accessibility hint"
-    )
-    public static let championBadge = NSLocalizedString("champion_badge", comment: "Champion badge accessibility")
-    public static let teamColorIndicator = NSLocalizedString(
-        "team_color_indicator",
-        comment: "Team color accessibility"
-    )
-    public static let expandDetails = NSLocalizedString(
-        "expand_details",
-        comment: "Expand details accessibility"
-    )
-    public static let collapseDetails = NSLocalizedString("collapse_details", comment: "Collapse details accessibility")
+    public static let seasonButtonHint = "Double tap to view race winners"
+    public static let championBadge = "Champion badge"
+    public static let teamColorIndicator = "Team color indicator"
+    public static let expandDetails = "Expand details"
+    public static let collapseDetails = "Collapse details"
+    
+    // MARK: - Race Details
+    public static func roundLabel(_ round: String) -> String {
+        "Round \(round)"
+    }
+    
+    public static func raceTime(_ time: String) -> String {
+        "Time: \(time)"
+    }
+    
+    // MARK: - Offline & Network
+    public static let noInternetConnection = "No Internet Connection"
+    public static let connectToInternet = "Connect to the internet to load F1 data"
+    public static let noInternetAndNoCache = "No internet connection and no cached data available"
 } 
