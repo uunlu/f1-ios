@@ -52,7 +52,7 @@ public class LocalSeasonLoader: SeasonLoader {
                 do {
                     LocalSeasonLoader.sharedFileStorage = try FileBasedLocalStorage()
                 } catch {
-                    print("Failed to create file storage, falling back to UserDefaults: \(error)")
+                    AppLogger.debug("Failed to create file storage, falling back to UserDefaults: \(error)")
                     if LocalSeasonLoader.sharedUserDefaultsStorage == nil {
                         LocalSeasonLoader.sharedUserDefaultsStorage = UserDefaultsLocalStorage()
                     }
@@ -102,7 +102,7 @@ public class LocalSeasonLoader: SeasonLoader {
                 return .failure(LocalError.invalidationRequired)
             }
             
-            print("✅ Loaded seasons from local cache (cached: \(cachedData.timestamp))")
+            AppLogger.debug("✅ Loaded seasons from local cache (cached: \(cachedData.timestamp))")
             return .success(cachedData.data)
         } catch {
             if error is FileBasedLocalStorage.StorageError {
@@ -118,13 +118,13 @@ public class LocalSeasonLoader: SeasonLoader {
     /// Save seasons to local cache
     public func save(_ seasons: [Season]) throws {
         try localStorage.save(seasons, forKey: cacheKey)
-        print("💾 Saved \(seasons.count) seasons to local cache")
+        AppLogger.debug("💾 Saved \(seasons.count) seasons to local cache")
     }
     
     /// Clear cached seasons
     public func clearCache() throws {
         try localStorage.remove(forKey: cacheKey)
-        print("🗑️ Cleared seasons cache")
+        AppLogger.debug("🗑️ Cleared seasons cache")
     }
     
     /// Check if valid cached data exists

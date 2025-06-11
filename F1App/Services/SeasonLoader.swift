@@ -24,19 +24,19 @@ public class RemoteSeasonLoader: SeasonLoader {
         
         switch result {
         case .success(let data):
-            print("✅ Got data from network: \(data.count) bytes")
+            AppLogger.debug("✅ Got data from network: \(data.count) bytes")
             do {
                 let seasons = try JSONDecoder().decode([Season].self, from: data)
-                print("✅ Successfully decoded \(seasons.count) seasons from network")
+                AppLogger.debug("✅ Successfully decoded \(seasons.count) seasons from network")
                 return .success(seasons)
             } catch {
-                print("❌ JSON decode error: \(error.localizedDescription)")
-                print("🔄 JSON decode failed, using mock data")
+                AppLogger.debug("❌ JSON decode error: \(error.localizedDescription)")
+                AppLogger.debug("🔄 JSON decode failed, using mock data")
                 return .success(getMockSeasons())
             }
         case .failure(let error):
-            print("❌ Network error: \(error.localizedDescription)")
-            print("🔄 Network failed, using mock data for testing")
+            AppLogger.debug("❌ Network error: \(error.localizedDescription)")
+            AppLogger.debug("🔄 Network failed, using mock data for testing")
             return .success(getMockSeasons())
         }
     }
