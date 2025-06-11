@@ -44,16 +44,16 @@ public class RemoteSeasonLoader: SeasonLoader {
     // Mock data for testing when backend is not available
     private func getMockSeasons() -> [Season] {
         [
-            Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull"),
-            Season(driver: "Max Verstappen", season: "2022", constructor: "Red Bull"),
-            Season(driver: "Max Verstappen", season: "2021", constructor: "Red Bull"),
-            Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes"),
-            Season(driver: "Lewis Hamilton", season: "2019", constructor: "Mercedes"),
-            Season(driver: "Lewis Hamilton", season: "2018", constructor: "Mercedes"),
-            Season(driver: "Lewis Hamilton", season: "2017", constructor: "Mercedes"),
-            Season(driver: "Nico Rosberg", season: "2016", constructor: "Mercedes"),
-            Season(driver: "Lewis Hamilton", season: "2015", constructor: "Mercedes"),
-            Season(driver: "Lewis Hamilton", season: "2014", constructor: "Mercedes")
+            Season(driver: "Max Verstappen", season: "2023", constructor: "Red Bull", completed: true),
+            Season(driver: "Max Verstappen", season: "2022", constructor: "Red Bull", completed: true),
+            Season(driver: "Max Verstappen", season: "2021", constructor: "Red Bull", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2020", constructor: "Mercedes", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2019", constructor: "Mercedes", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2018", constructor: "Mercedes", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2017", constructor: "Mercedes", completed: true),
+            Season(driver: "Nico Rosberg", season: "2016", constructor: "Mercedes", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2015", constructor: "Mercedes", completed: true),
+            Season(driver: "Lewis Hamilton", season: "2014", constructor: "Mercedes", completed: true)
         ]
     }
 }

@@ -12,4 +12,5 @@ public struct Season: Codable, Identifiable, Hashable {
     public let driver: String
     public let season: String
     public let constructor: String
+    public let completed: Bool
 }

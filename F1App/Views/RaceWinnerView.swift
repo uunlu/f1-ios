@@ -178,7 +178,7 @@ struct RaceWinnerView: View {
 #Preview {
     class MockSeasonLoader: SeasonLoader {
         func fetch(from url: URL) async -> Result<[Season], any Error> {
-            .success([.init(driver: "driver", season: "2024", constructor: "constructor")])
+            .success([.init(driver: "driver", season: "2024", constructor: "constructor", completed: true)])
         }
     }
     
@@ -213,7 +213,8 @@ struct RaceWinnerView: View {
     let mockSeason = Season(
         driver: "Max Verstappen",
         season: "2024",
-        constructor: "Red Bull Racing"
+        constructor: "Red Bull Racing",
+        completed: true
     )
     
     return RaceWinnerView(viewModel: viewModel, season: mockSeason)

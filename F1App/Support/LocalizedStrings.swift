@@ -26,6 +26,7 @@ public enum LocalizedStrings {
     public static let formula1WorldChampionship = "Formula 1 World Championship"
     public static let driversChampionshipWinner = "Drivers Championship Winner"
     public static let raceWinners = "Race Winners"
+    public static let ongoingChampionship = "Ongoing Championship"
     
     // MARK: - Data Labels
     public static let season = "Season"
