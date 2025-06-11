@@ -20,18 +20,19 @@ struct SeasonsView: View {
     var body: some View {
         NavigationView {
             VStack(spacing: 0) {
-                // Simple header
-                Text(LocalizedStrings.f1WorldChampions)
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding()
-                    .frame(maxWidth: .infinity, alignment: .leading)
+                // Header with title and timestamp
+                headerView
+                
+                // Offline banner (when no internet and no cache)
+                if viewModel.showOfflineBanner {
+                    offlineBanner
+                }
                 
                 if viewModel.isLoading && viewModel.seasons.isEmpty {
                     loadingView
-                } else if let error = viewModel.error, viewModel.seasons.isEmpty {
+                } else if let error = viewModel.error, viewModel.seasons.isEmpty && !viewModel.showOfflineBanner {
                     errorView(error)
-                } else if viewModel.seasons.isEmpty {
+                } else if viewModel.seasons.isEmpty && !viewModel.showOfflineBanner {
                     emptyStateView
                 } else {
                     seasonsList
@@ -47,6 +48,47 @@ struct SeasonsView: View {
                 viewModel.cancelLoading()
             }
         }
+    }
+    
+    // Enhanced header with timestamp
+    private var headerView: some View {
+        VStack(alignment: .leading, spacing: F1Layout.spacing4) {
+            // Main title
+            Text(LocalizedStrings.f1WorldChampions)
+                .font(.largeTitle)
+                .fontWeight(.bold)
+                .frame(maxWidth: .infinity, alignment: .leading)
+            
+            // Last updated timestamp
+            if let lastUpdated = viewModel.lastUpdated, viewModel.hasLocalData {
+                HStack(spacing: F1Layout.spacing4) {
+                    Image(systemName: viewModel.networkState == .connected ? "checkmark.circle.fill" : "wifi.slash")
+                        .font(.caption)
+                        .foregroundColor(viewModel.networkState == .connected ? .green : .orange)
+                    
+                    Text(LocalizedStrings.lastUpdated(formatRelativeTime(lastUpdated)))
+                        .font(.caption)
+                        .foregroundColor(.secondary)
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+            }
+        }
+        .padding(.horizontal)
+        .padding(.vertical, F1Layout.spacing8)
+    }
+    
+    // Offline banner
+    private var offlineBanner: some View {
+        F1Components.OfflineBanner(
+            message: LocalizedStrings.connectToInternet,
+            retryAction: {
+                viewModel.loadSeasons()
+            }
+        )
+        .padding(.horizontal)
+        .padding(.bottom, F1Layout.spacing8)
+        .transition(.move(edge: .top).combined(with: .opacity))
+        .animation(.easeInOut(duration: 0.3), value: viewModel.showOfflineBanner)
     }
     
     // Optimized loading view
@@ -159,5 +201,12 @@ struct SeasonsView: View {
         for await isRefreshing in viewModel.$isRefreshing.values where !isRefreshing {
             return  // Exit when refresh completes
         }
+    }
+    
+    // Helper to format relative time
+    private func formatRelativeTime(_ date: Date) -> String {
+        let formatter = RelativeDateTimeFormatter()
+        formatter.unitsStyle = .short
+        return formatter.localizedString(for: date, relativeTo: Date())
     }
 }

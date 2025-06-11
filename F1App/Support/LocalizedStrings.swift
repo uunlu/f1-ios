@@ -83,4 +83,9 @@ public enum LocalizedStrings {
     public static func raceTime(_ time: String) -> String {
         String(localized: "race_time", defaultValue: "Time: \(time)", comment: "Race completion time label")
     }
+    
+    // MARK: - Network & Offline Strings
+    public static let noInternetConnection = String(localized: "no_internet_connection", defaultValue: "No Internet Connection", comment: "No internet banner title")
+    public static let connectToInternet = String(localized: "connect_to_internet", defaultValue: "Connect to the internet to load F1 data", comment: "Connect to internet message")
+    public static let noInternetAndNoCache = String(localized: "no_internet_and_no_cache", defaultValue: "No internet connection and no cached data available", comment: "Error when offline with no cache")
 } 
